@@ -1,6 +1,6 @@
 <!-- Main modal -->
-<div id="default-modal" tabindex="-1" aria-hidden="true" class="create_zip_code_modal overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-4 w-full max-w-4xl max-h-full mx-auto my-14">
+<div id="default-modal" tabindex="-1" aria-hidden="true" class="create_zip_code_modal overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full hidden">
+    <div class="relative p-4 w-full max-w-4xl max-h-full mx-auto my-14" [formGroup]="ZCGroup">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <!-- Modal header -->
@@ -16,13 +16,62 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <div class="p-4 md:p-5 space-y-4">
-                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
-                </p>
-                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
-                </p>
+            <div class="p-4 md:p-5 grid grid-cols-3 gap-4">
+                <div>
+                    <label for="zc_ident" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ident</label>
+                    <input type="text" id="zc_ident" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="ident" />
+                    @if(ZCGroup.get('ident')?.errors?.["required"]){
+                        <p class="text-red-500">
+                            Vnos identa je obvezen !
+                        </p>
+                    }
+                </div>
+                <div>
+                    <label for="zc_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Naziv</label>
+                    <input type="text" id="zc_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="name" />
+                    @if(ZCGroup.get('name')?.errors?.["required"]){
+                        <p class="text-red-500">
+                            Vnos naziva je obvezen !
+                        </p>
+                    }
+                </div>
+                <div>
+                    <label for="zc_attribute" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Poštna številka</label>
+                    <input type="text" id="zc_attribute" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="attribute" />
+                    @if(ZCGroup.get('attribute')?.errors?.["required"]){
+                        <p class="text-red-500">
+                            Vnos poštne številke je obvezen !
+                        </p>
+                    }
+                </div>
+                <div>
+                    <label (click)="toggleComboBoxMenu('zc_country_menu')" for="combobox" class="dark:text-white block text-sm/6 font-medium text-gray-900">Država</label>
+                    <div class="relative mt-2">
+                      <input [value]="selectedCountryItem.name" id="combobox" type="text" class=" dark:bg-gray-700 dark:text-white block w-full rounded-md bg-white py-1.5 pl-3 pr-12 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" role="combobox" aria-controls="options" aria-expanded="false">
+                      <button (click)="toggleComboBoxMenu('zc_country_menu')" type="button" class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
+                        <svg class="size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                          <path fill-rule="evenodd" d="M10.53 3.47a.75.75 0 0 0-1.06 0L6.22 6.72a.75.75 0 0 0 1.06 1.06L10 5.06l2.72 2.72a.75.75 0 1 0 1.06-1.06l-3.25-3.25Zm-4.31 9.81 3.25 3.25a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 1 0-1.06-1.06L10 14.94l-2.72-2.72a.75.75 0 0 0-1.06 1.06Z" clip-rule="evenodd" />
+                        </svg>
+                      </button>
+                  
+                      <ul class="zc_country_menu hidden absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm" id="options" role="listbox">
+                        @for(country of CountryList; track country){
+                            <li (click)="setCountry(country)"  class="relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900" id="option-0" role="option" tabindex="-1">
+                                <span class="block truncate">{{ country.name }}</span>
+                                @if(selectedCountryItemActive && selectedCountryItem.id == country.id){
+                                    <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600">
+                                        <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                          <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                                        </svg>
+                                     </span>
+                                }
+                              </li>
+                        }
+                  
+                        <!-- More items... -->
+                      </ul>
+                    </div>
+                  </div>
             </div>
             <!-- Modal footer -->
             <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">

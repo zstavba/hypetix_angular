@@ -4,6 +4,7 @@ import $ from 'jquery';
 import { SessionService } from '../../../auth/API/session.service';
 import { BankService } from '../../../auth/API/bank.service';
 import { Generator } from '../../../auth/functions/generator';
+import { Country } from '../../../auth/Classes/country';
 @Component({
   selector: 'create-zip-code-modal',
   imports: [
@@ -19,8 +20,14 @@ export class CreateZipCodeModalComponent implements OnInit {
 
   public generator: Generator = new Generator();
 
+  public CountryList: Array<Country> = new Array<Country>();
+  public selectedCountryItem: Country = new Country();
+  public selectedCountryItemActive: boolean = false; 
+
+
   public ZCGroup: FormGroup = new FormGroup({
     fk_user_id: new FormControl(''),
+    fk_country_id: new FormControl(''),
     ident: new FormControl(this.generator.generateIdent(),Validators.required),
     name: new FormControl('',Validators.required),
     attribute: new FormControl('',Validators.required),
@@ -35,10 +42,15 @@ export class CreateZipCodeModalComponent implements OnInit {
     this.ZCGroup.patchValue({
       fk_user_id: this._SessionService.getSessionData()
     });
+    this.getCountry();
   }
 
   closeZipCodeModal = () => {
     $('.create_zip_code_modal').fadeOut();
+  }
+
+  toggleComboBoxMenu = (item: string) => {
+    $(`.${item}`).fadeToggle();
   }
 
   saveData = () => {
@@ -50,6 +62,23 @@ export class CreateZipCodeModalComponent implements OnInit {
         this.systemMessage.emit(error.error.message);
       }
     )
+  }
+
+  getCountry = () => {
+    this._BankService.getCountry().subscribe(
+      (response: Country[]) => {
+        this.CountryList = response; 
+      }
+    )
+  }
+
+  setCountry = (C: Country) => {
+    this.selectedCountryItem = C; 
+    this.selectedCountryItemActive = true; 
+    this.ZCGroup.patchValue({
+      fk_country_id: C
+    });
+    this.systemMessage.emit("Država je bila uspešno izbrana !")
   }
 
 }
