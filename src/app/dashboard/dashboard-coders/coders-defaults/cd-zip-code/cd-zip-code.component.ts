@@ -82,4 +82,8 @@ export class CdZipCodeComponent implements OnInit  {
     $('.update_zipcode_modal').fadeIn();
   }
 
+  toggleUploadZipCodeModal = () => {
+    $('.upload_zipcode_modal').fadeIn();
+  }
+
 }

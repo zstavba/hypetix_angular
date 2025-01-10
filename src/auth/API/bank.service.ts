@@ -7,6 +7,7 @@ import { Language } from '../Classes/language';
 import { Areas } from '../Classes/areas';
 import { environment } from '../../environments/environment.development';
 import { FormGroup } from '@angular/forms';
+import { User } from '../Classes/user';
 
 @Injectable({
   providedIn: 'root'
@@ -92,6 +93,13 @@ export class BankService {
 
   updateZipCode = (ID: number, data: FormGroup): Observable<any> => {
     return this.http.post<any>(`${this.http_link}/bank/zipcode/update/${ID}`,data.value)
+  }
+
+  uploadZipCode = (data: any): Observable<any> => {
+    let form_data: FormData = new FormData();
+    form_data.append('zipcode_file',data.file);
+    form_data.append("fk_user_id",JSON.stringify(data.fk_user_id));
+    return this.http.post<any>(`${this.http_link}/bank/zipcode/upload`,form_data)
   }
 
   // ZipCode END

@@ -91,6 +91,12 @@ export class CodersDefaultsComponent implements OnInit {
         category: "Pošte",
         url: '/dashboard/coders/defaults/zip/code',
       },
+      {
+        title: "Sektor",
+        items: this.ZipCodeList.length,
+        category: "Sektor",
+        url: '/dashboard/coders/defaults/sector',
+      },
     ]
   }
 
