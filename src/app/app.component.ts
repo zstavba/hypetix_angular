@@ -101,6 +101,7 @@ import { DeliveryConditionsService } from '../auth/API/delivery-conditions.servi
 import { PaymentTerms } from '../auth/Classes/payment-terms';
 import { PaymentTermsService } from '../auth/API/payment-terms.service';
 import { SearchPaymentTermPipe } from '../auth/Pipes/search-payment-term.pipe';
+import { SearchZipCodePipe } from '../auth/Pipes/search-zip-code.pipe';
 
 @Component({
   standalone: true,
@@ -206,7 +207,8 @@ import { SearchPaymentTermPipe } from '../auth/Pipes/search-payment-term.pipe';
     DeliveryConditionsService,
     PaymentTerms,
     PaymentTermsService,
-    SearchPaymentTermPipe
+    SearchPaymentTermPipe,
+    SearchZipCodePipe
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

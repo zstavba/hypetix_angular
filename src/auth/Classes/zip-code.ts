@@ -1,3 +1,4 @@
+import { Country } from "./country";
 import { User } from "./user";
 
 export class ZipCode {
@@ -7,6 +8,7 @@ export class ZipCode {
     public name: string = '';
     public attribute: string = ''; 
     public fk_user_id: User = new User();
+    public fk_country_id: Country =  new Country();
 
     constructor(){}
 

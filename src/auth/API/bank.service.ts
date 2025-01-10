@@ -86,6 +86,14 @@ export class BankService {
     return this.http.post<any>(`${this.http_link}/bank/zipcode/create`,data.value);
   }
 
+  deleteZipCode = (ID: number): Observable<any> => {
+    return this.http.delete<any>(`${this.http_link}/bank/zipcode/delete/${ID}`);
+  }
+
+  updateZipCode = (ID: number, data: FormGroup): Observable<any> => {
+    return this.http.post<any>(`${this.http_link}/bank/zipcode/update/${ID}`,data.value)
+  }
+
   // ZipCode END
 
   getFlags = (): Observable<any> => {
