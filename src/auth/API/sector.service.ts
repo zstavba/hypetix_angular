@@ -32,5 +32,12 @@ export class SectorService {
     return this.http.post<any>(`${this.http_link}/update/${ID}`,data.value);
   }
 
+  uploadData = (data: any): Observable<any> => {
+    let form_data: FormData = new FormData();
+    form_data.append('sector_file',data.file);
+    form_data.append('user',JSON.stringify(data.fk_user_id));
+    return this.http.post<any>(`${this.http_link}/upload`,form_data);
+  }
+
 
 }

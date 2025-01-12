@@ -10,6 +10,8 @@ import { PaymentTerms } from '../../../../auth/Classes/payment-terms';
 import { PaymentTermsService } from '../../../../auth/API/payment-terms.service';
 import { DeliveryConditionsService } from '../../../../auth/API/delivery-conditions.service';
 import { ZipCode } from '../../../../auth/Classes/zip-code';
+import { SectorService } from '../../../../auth/API/sector.service';
+import { Sector } from '../../../../auth/Classes/sector';
 
 @Component({
   selector: 'app-coders-defaults',
@@ -28,12 +30,14 @@ export class CodersDefaultsComponent implements OnInit {
   public DCList: Array<DeliveryConditions> = new Array<DeliveryConditions>();
   public PaymentTermsList: Array<PaymentTerms> = new Array<PaymentTerms>();
   public ZipCodeList: Array<ZipCode> = new Array<ZipCode>();
+  public SectorList: Array<Sector> = new Array<Sector>();
 
   constructor(
     private _WorkCenterService: WorkCenterClassificationService,
     private _BankService: BankService,
     private _PTService: PaymentTermsService,
-    private _DCService: DeliveryConditionsService
+    private _DCService: DeliveryConditionsService,
+    private _SectorService: SectorService
   ){}
 
   ngOnInit(): void {
@@ -43,6 +47,7 @@ export class CodersDefaultsComponent implements OnInit {
     this.getTerms();
     this.getDeliveryConditions();
     this.getZipCode();
+    this.getSectors();
     this.updateTableData();
   }
 
@@ -93,7 +98,7 @@ export class CodersDefaultsComponent implements OnInit {
       },
       {
         title: "Sektor",
-        items: this.ZipCodeList.length,
+        items: this.SectorList.length,
         category: "Sektor",
         url: '/dashboard/coders/defaults/sector',
       },
@@ -145,6 +150,14 @@ export class CodersDefaultsComponent implements OnInit {
       (response: ZipCode[]) => {
         this.ZipCodeList = response; 
       } 
+    )
+  }
+
+  getSectors = () => {
+    this._SectorService.getItems().subscribe(
+      (response: Sector[]) => {
+        this.SectorList = response;
+      }
     )
   }
 

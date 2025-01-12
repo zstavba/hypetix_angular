@@ -1,7 +1,8 @@
-<notification [class_type]="'sector_notification'" [system_message]="systemMessage"></notification>
-<create-sector-modal (systemMessage)="onNotify($event)"></create-sector-modal>
-<update-sector-modal [Info]="selectedSector" (systemMessage)="onNotify($event)"></update-sector-modal>
-<upload-sector-modal (systemMessage)="onNotify($event)"></upload-sector-modal>
+<notification [class_type]="'shipping_method_notification'" [system_message]="systemMessage" ></notification>
+<create-shippping-method-modal (systemMessage)="onNotify($event)"></create-shippping-method-modal>
+<upload-shippping-method-modal (systemMessage)="onNotify($event)"></upload-shippping-method-modal>
+<update-shippping-method-modal [Info]="selectedShippingMethod" (systemMessage)="onNotify($event)"></update-shippping-method-modal>
+
 <div class="p-4">
     <nav class="flex mb-4" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-3 rtl:space-x-reverse">
@@ -21,12 +22,12 @@
                 <a [routerLink]="['/dashboard/coders']" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Šifranti</a>
                 </div>
             </li>
-            <li aria-current="page">
+            <li>
                 <div class="flex items-center">
                 <svg class="w-3 h-3 text-gray-400 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                 </svg>
-                <span [routerLink]="['/dashboard/coders/defaults']"  class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Splošno</span>
+                <a [routerLink]="['/dashboard/coders/commercials']" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Komercijala</a>
                 </div>
             </li>
             <li aria-current="page">
@@ -34,31 +35,31 @@
                 <svg class="w-3 h-3 text-gray-400 mx-1 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                 </svg>
-                <span [routerLink]="['/dashboard/coders/defaults/sectors']"  class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Sektorji</span>
+                <span [routerLink]="['/dashboard/coders/commercials/shipping/method']"  class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400"> Načini odprem </span>
                 </div>
             </li>
         </ol>
     </nav>
-    <div class="grid grid-cols-2 gap-4">
-        <h2 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Sektorji</h2>
-        @if(UserInformation?.fk_information_id?.user_type == 'admin'){
+    <div class="grid sm:grid-cols-2 gap-4">
+        <h2 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Načini odprem</h2>
+       @if(UserInformation?.fk_information_id?.user_type == 'admin'){
             <div class="text-right">
-                <button (click)="toggleCreateSectorModal()"  type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                <button (click)="toggleCreateSMModal()" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
                     <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 1V4H1V6H4V9H6V6H9V4H6V1H4ZM3 20.0066V11H5V19H13V14C13 13.45 13.45 13 14 13L19 12.999V5H11V3H20.0066C20.5552 3 21 3.45576 21 4.00247V15L15 20.996L4.00221 21C3.4487 21 3 20.5551 3 20.0066ZM18.171 14.999L15 15V18.169L18.171 14.999Z"></path></svg>
                 </button>
-                <button (click)="openUploadSectorModal()"  type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                <button (click)="toggleUploadSMModal()" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
                     <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 19H20V12H22V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V12H4V19ZM13 9V16H11V9H6L12 3L18 9H13Z"></path></svg>            
                 </button>
             </div>
-        }
+       }
     </div>
     <div class="w-full  rounded">
-        <div class="bg-green-100 text-green-800 text-xl w-full font-medium me-2 px-2.5 py-0.5 rounded-t dark:bg-green-900 dark:text-green-300 p-4">Prikaz vrstic 0– {{ sectorList.length }} (skupaj 1, poizvedba je trajala 0,0003 sekunde.)</div>
+        <div class="bg-green-100 text-green-800 text-xl w-full font-medium me-2 px-2.5 py-0.5 rounded-t dark:bg-green-900 dark:text-green-300 p-4">Prikaz vrstic 0–{{ ShippingMethodList.length }} (skupaj 1, poizvedba je trajala 0,0003 sekunde.)</div>
         <div class="p-4 code-wrapper dark:bg-navy-750 dark:text-white space-x-4 overflow-auto w-full">
             <span class="text-indigo-400">SELECT</span> 
             <span class="text-red-600">*</span> 
             <span class="text-indigo-400">FROM</span>
-            <span class="text-sky-400"> `sectors`</span>
+            <span class="text-sky-400"> `shipping_method`</span>
         </div>
         <div class="grid sm:grid-cols-2 gap-4 dark:bg-navy-800 rounded-b p-4">
             <div class="pt-4">
@@ -68,7 +69,7 @@
                 </div>
             </div>
 
-            <div  class="flex items-center mx-auto w-full">   
+            <div class="flex items-center mx-auto w-full">   
                 <label for="simple-search" class="sr-only">Iskanje</label>
                 <div class="relative w-full">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -76,7 +77,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2"/>
                         </svg>
                     </div>
-                    <input [(ngModel)]="searchSector" type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Iskanje po tabeli..." required />
+                    <input [(ngModel)]="searchMethod" type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Iskanje po tabeli..." required />
                 </div>
                 <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -89,64 +90,64 @@
     </div>
 </div>
 <div class="grid grid-cols-3 gap-4 p-4">
-    @for((sector of sectorList | searchSector: searchSector | paginate: {itemsPerPage: ipp, currentPage: p}); track sector){
+    @for((method of ShippingMethodList | searchShippingMethod: searchMethod | paginate: {itemsPerPage: ipp, currentPage: p}); track method){
         <div class="rounded-lg bg-gradient-to-r from-sky-400 to-blue-600 p-1">
             <div class="rounded-lg bg-slate-50 px-4 py-4 dark:bg-navy-900 sm:px-5">
               <div class="grid grid-cols-2 gap-4">
                 <h2 class="text-lg font-medium tracking-wide text-slate-600 line-clamp-1 dark:text-navy-100">
-                  {{ sector.title }}
+                  {{ method.title }}
                 </h2>
                 <h2 class="text-lg text-right font-medium tracking-wide text-slate-600 line-clamp-1 dark:text-navy-100">
-                    {{sector.ident }}
-                  </h2>
+                    {{ method.ident }}
+                </h2>
               </div>
               <div class="pt-2 grid grid-cols-2 gap-4">
                 <div class="flex items-left space-x-4">
                     <div class="relative">
-                        <img class="w-10 h-10 rounded" [src]="sector.fk_user_id.fk_information_id.profile_image" alt="">
+                        <img class="w-10 h-10 rounded" [src]="method.fk_user_id.fk_information_id.profile_image" alt="">
                         <span class="absolute bottom-0 left-8 transform translate-y-1/4 w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
                     </div>
                     <div class="text-semibold">
                         <div>                        
-                            {{ sector.fk_user_id.first_name }}
-                            {{ sector.fk_user_id.last_name }}
+                            {{ method.fk_user_id.first_name }}
+                            {{ method.fk_user_id.last_name }}
                         </div>
                         <div class="text-xs">
-                            Tip uporabnika: {{ sector.fk_user_id.fk_information_id.user_type }}
+                            Tip uporabnika: {{ method.fk_user_id.fk_information_id.user_type }}
                         </div>
                     </div>
                 </div>
-                <div class="text-right space-x-4">
-                    @if(UserInformation?.fk_information_id?.user_type == 'admin'){
-                        <button (click)="updateSelectedSector(sector)" type="button" class="rounded-md bg-sky-100 px-2.5 py-1.5 text-sm font-semibold text-sky-600 shadow-sm hover:bg-sky-200">
+                @if(UserInformation?.fk_information_id?.user_type == 'admin'){
+                    <div class="text-right space-x-4">
+                        <button (click)="toggleUpdateMethodModal(method)"   type="button" class="rounded-md bg-sky-100 px-2.5 py-1.5 text-sm font-semibold text-sky-600 shadow-sm hover:bg-sky-200">
                             <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15.7279 9.57627L14.3137 8.16206L5 17.4758V18.89H6.41421L15.7279 9.57627ZM17.1421 8.16206L18.5563 6.74785L17.1421 5.33363L15.7279 6.74785L17.1421 8.16206ZM7.24264 20.89H3V16.6473L16.435 3.21231C16.8256 2.82179 17.4587 2.82179 17.8492 3.21231L20.6777 6.04074C21.0682 6.43126 21.0682 7.06443 20.6777 7.45495L7.24264 20.89Z"></path></svg>
                         </button>
-                        <button (click)="deleteItem(sector.id)"  type="button" class="rounded-md bg-red-100 px-2.5 py-1.5 text-sm font-semibold text-red-600 shadow-sm hover:bg-red-200">
+                        <button (click)="deleteItem(method.id)" type="button" class="rounded-md bg-red-100 px-2.5 py-1.5 text-sm font-semibold text-red-600 shadow-sm hover:bg-red-200">
                             <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8ZM6 10V20H18V10H6ZM9 12H11V18H9V12ZM13 12H15V18H13V12ZM7 5V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V5H22V7H2V5H7ZM9 4V5H15V4H9Z"></path></svg>
                         </button>
-                    }
-                </div>
+                    </div>
+                }
               </div>
             </div>
-          </div> 
+          </div>
     }@empty {
         <div class="rounded-lg bg-error px-4 py-4 text-white sm:px-5 col-span-3">
             <div>
               <h2 class="text-lg font-medium tracking-wide line-clamp-1">
-                Sistemsko obvestilo
+                SIstemsko obvestilo
               </h2>
             </div>
             <div class="pt-2">
               <p>
-                Seznam podatkov je prazen, ali pa iskana vrednost ni najdena !!!
+                Seznam podatkov je trenutno prazen, ali pa iskana vrednost ne obstaja !!!
               </p>
             </div>
-          </div>
+        </div>
     }
 </div>
-<div class="div grid grid-cols-2 gap-4">
+<div class="grid grid-cols-2 gap-4">
     <div></div>
-    <div class="bg-gray-400 dark:text-white rounded text-right p-4">
-        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <div class="w-full p-2 text-right bg-gray-400 rounded">
+        <pagination-controls class="pt-2" (pageChange)="p = $event"></pagination-controls>
     </div>
 </div>

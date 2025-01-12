@@ -22,6 +22,7 @@ import { CdDeliveryConditionsComponent } from './coders-defaults/cd-delivery-con
 import { CdPaymentTermsComponent } from './coders-defaults/cd-payment-terms/cd-payment-terms.component';
 import { CdZipCodeComponent } from './coders-defaults/cd-zip-code/cd-zip-code.component';
 import { CdSectorComponent } from './coders-defaults/cd-sector/cd-sector.component';
+import { CcShippingMethodComponent } from './coders-commercial/cc-shipping-method/cc-shipping-method.component';
 
 const routes: Routes = [
   {
@@ -111,6 +112,10 @@ const routes: Routes = [
   {
     path: "commercials",
     component: CodersCommercialComponent
+  },
+  {
+    path: "commercials/shippping/method",
+    component: CcShippingMethodComponent
   },
   {
     path: "production",

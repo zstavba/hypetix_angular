@@ -104,6 +104,9 @@ import { SearchPaymentTermPipe } from '../auth/Pipes/search-payment-term.pipe';
 import { SearchZipCodePipe } from '../auth/Pipes/search-zip-code.pipe';
 import { Sector } from '../auth/Classes/sector';
 import { SectorService } from '../auth/API/sector.service';
+import { SearchSectorPipe } from '../auth/Pipes/search-sector.pipe';
+import { Unit } from '../auth/Classes/unit';
+import { SearchShippingMethodPipe } from '../auth/Pipes/search-shipping-method.pipe';
 
 @Component({
   standalone: true,
@@ -212,7 +215,10 @@ import { SectorService } from '../auth/API/sector.service';
     SearchPaymentTermPipe,
     SearchZipCodePipe,
     Sector,
-    SectorService
+    SectorService,
+    SearchSectorPipe,
+    Unit,
+    SearchShippingMethodPipe
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
