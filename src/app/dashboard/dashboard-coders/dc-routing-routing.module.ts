@@ -26,6 +26,7 @@ import { CcShippingMethodComponent } from './coders-commercial/cc-shipping-metho
 import { CcCurrencieComponent } from './coders-commercial/cc-currencie/cc-currencie.component';
 import { CcPriceTypeComponent } from './coders-commercial/cc-price-type/cc-price-type.component';
 import { CcTrafficTypeComponent } from './coders-commercial/cc-traffic-type/cc-traffic-type.component';
+import { CcExchangeRatesComponent } from './coders-commercial/cc-exchange-rates/cc-exchange-rates.component';
 
 const routes: Routes = [
   {
@@ -131,6 +132,10 @@ const routes: Routes = [
   {
     path: "commercials/traffic/type",
     component: CcTrafficTypeComponent
+  },
+  {
+    path: "commercials/exchange/rates",
+    component: CcExchangeRatesComponent
   },
   {
     path: "production",

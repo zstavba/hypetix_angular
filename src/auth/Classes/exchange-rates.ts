@@ -1,10 +1,11 @@
+import { Currencie } from "./currencie";
 import { User } from "./user";
 
 export class ExchangeRates {
 
     public id: number = 0;
     public fk_user_id: User = new User();
-    public currency: string  = '';
+    public fk_currencie_id: Currencie = new Currencie();
     public type: string = '';
     public unit: string = '';
     public course: string = '';
