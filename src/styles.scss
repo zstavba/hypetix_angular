@@ -21,3 +21,8 @@ html {
 @tailwind utilities;
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.page-item.active .page-link {
+  background-color: red;
+  border-color: red;
+}

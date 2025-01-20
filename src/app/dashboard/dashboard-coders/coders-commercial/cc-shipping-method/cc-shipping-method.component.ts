@@ -12,11 +12,11 @@ import { ShippingMethodService } from '../../../../../auth/API/shipping-method.s
 import { ShippingMethod } from '../../../../../auth/Classes/shipping-method';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SearchShippingMethodPipe } from '../../../../../auth/Pipes/search-shipping-method.pipe';
+import { NavigationsComponent } from '../../../../components/navigations/navigations.component';
 
 @Component({
   selector: 'app-cc-shipping-method',
   imports: [
-    RouterLink,
     ReactiveFormsModule,
     FormsModule,
     NotificationComponent,
@@ -24,7 +24,8 @@ import { SearchShippingMethodPipe } from '../../../../../auth/Pipes/search-shipp
     UploadShipppingMethodModalComponent,
     UpdateShipppingMethodModalComponent,
     NgxPaginationModule,
-    SearchShippingMethodPipe
+    SearchShippingMethodPipe,
+    NavigationsComponent
   ],
   templateUrl: './cc-shipping-method.component.html',
   styleUrl: './cc-shipping-method.component.scss'
@@ -37,6 +38,7 @@ export class CcShippingMethodComponent implements OnInit {
   public ipp: number = 9;
   public p: any; 
   public searchMethod: string = '';
+  public URLsList: Array<any> = new  Array<any>();
 
   public UserInformation: User | null = new User();
 
@@ -49,6 +51,24 @@ export class CcShippingMethodComponent implements OnInit {
   ngOnInit(): void {
     this.UserInformation = this._SessionService.getSessionData();
     this.getShippingMethods();
+    this.URLsList = [
+      {
+        title: "Domov",
+        url: '/dashboard',
+      },
+      {
+        title: "Šifranti",
+        url:  '/dashboard/coders',
+      },
+      {
+        title: "Komercijala",
+        url:  '/dashboard/coders/commercials',
+      },
+      {
+        title: "Načini odprem",
+        url: '/dashboard/coders/commercials/shipping/method'
+      }
+    ]
   }
 
   onNotify = (message: string) => {

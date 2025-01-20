@@ -107,6 +107,10 @@ import { SectorService } from '../auth/API/sector.service';
 import { SearchSectorPipe } from '../auth/Pipes/search-sector.pipe';
 import { Unit } from '../auth/Classes/unit';
 import { SearchShippingMethodPipe } from '../auth/Pipes/search-shipping-method.pipe';
+import { SearchCurrenciePipe } from '../auth/Pipes/search-currencie.pipe';
+import { SearchCountryPipe } from '../auth/Pipes/search-country.pipe';
+import { SearchPriceTypePipe } from '../auth/Pipes/search-price-type.pipe';
+import { SearchTrafficTypePipe } from '../auth/Pipes/search-traffic-type.pipe';
 
 @Component({
   standalone: true,
@@ -218,7 +222,11 @@ import { SearchShippingMethodPipe } from '../auth/Pipes/search-shipping-method.p
     SectorService,
     SearchSectorPipe,
     Unit,
-    SearchShippingMethodPipe
+    SearchShippingMethodPipe,
+    SearchCurrenciePipe,
+    SearchCountryPipe,
+    SearchPriceTypePipe,
+    SearchTrafficTypePipe
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
