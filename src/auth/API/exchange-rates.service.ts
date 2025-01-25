@@ -4,6 +4,7 @@ import { ExchangeRates } from '../Classes/exchange-rates';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { FormGroup } from '@angular/forms';
+import { tick } from '@angular/core/testing';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,14 @@ export class ExchangeRatesService {
 
   createItem = (data: FormGroup): Observable<any> => {
     return this.http.post<any>(`${this.http_link}/create`,data.value);
+  }
+
+  deleteItem = (ID: number) : Observable<any> => {
+    return this.http.delete<any>(`${this.http_link}/delete/${ID}`);
+  }
+
+  updateItem = (ID: number, data: FormGroup): Observable<any> => {
+    return this.http.post<any>(`${this.http_link}/update/${ID}`,data.value);
   }
 
 }

@@ -8,6 +8,9 @@ import { NotificationComponent } from '../../../../components/notification/notif
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import $ from 'jquery';
 import { CreateExchangeRatesModalComponent } from '../../../../components/create-exchange-rates-modal/create-exchange-rates-modal.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SearchExchangeRatesPipe } from '../../../../../auth/Pipes/search-exchange-rates.pipe';
+import { UpdateExchangeRatesModalComponent } from '../../../../components/update-exchange-rates-modal/update-exchange-rates-modal.component';
 
 @Component({
   selector: 'app-cc-exchange-rates',
@@ -16,7 +19,10 @@ import { CreateExchangeRatesModalComponent } from '../../../../components/create
     FormsModule,
     NavigationsComponent,
     NotificationComponent,
-    CreateExchangeRatesModalComponent
+    CreateExchangeRatesModalComponent,
+    NgxPaginationModule,
+    SearchExchangeRatesPipe,
+    UpdateExchangeRatesModalComponent
   ],
   templateUrl: './cc-exchange-rates.component.html',
   styleUrl: './cc-exchange-rates.component.scss'
@@ -28,6 +34,11 @@ export class CcExchangeRatesComponent implements OnInit {
   public UserInformation: User | null = new User();
   public systemMessage: string = '';
   public searchExchangeRates: string = '';
+  public ipp: number = 9;
+  public p: any; 
+
+  public selectedERItem: ExchangeRates = new ExchangeRates();
+
 
   constructor(
     private _ExchangeRatesService: ExchangeRatesService,
@@ -75,4 +86,23 @@ export class CcExchangeRatesComponent implements OnInit {
     },4000);
   }
 
+  toggleCreateERModal = () => {
+    $('.create_exchange_rates_modal').fadeIn();
+  }
+
+  deleteItem = (ID: number) => {
+    this._ExchangeRatesService.deleteItem(ID).subscribe(
+      (response: any) => {
+        this.onNotify(response.message);
+      },
+       (error: any) =>  {
+        this.onNotify(error.error.message);
+       }
+    )
+  }
+
+  toggleUpdateModal = (item: ExchangeRates) => {
+    $('.update_exchnage_rates_modal').fadeIn();
+    this.selectedERItem = item; 
+  }
 }

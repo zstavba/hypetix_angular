@@ -111,6 +111,10 @@ import { SearchCurrenciePipe } from '../auth/Pipes/search-currencie.pipe';
 import { SearchCountryPipe } from '../auth/Pipes/search-country.pipe';
 import { SearchPriceTypePipe } from '../auth/Pipes/search-price-type.pipe';
 import { SearchTrafficTypePipe } from '../auth/Pipes/search-traffic-type.pipe';
+import { SearchExchangeRatesPipe } from '../auth/Pipes/search-exchange-rates.pipe';
+import { DebitNotes } from '../auth/Classes/debit-notes';
+import { DebitNotesService } from '../auth/API/debit-notes.service';
+import { SearchDebitNotesPipe } from '../auth/Pipes/search-debit-notes.pipe';
 
 @Component({
   standalone: true,
@@ -226,7 +230,11 @@ import { SearchTrafficTypePipe } from '../auth/Pipes/search-traffic-type.pipe';
     SearchCurrenciePipe,
     SearchCountryPipe,
     SearchPriceTypePipe,
-    SearchTrafficTypePipe
+    SearchTrafficTypePipe,
+    SearchExchangeRatesPipe,
+    DebitNotes,
+    DebitNotesService,
+    SearchDebitNotesPipe
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

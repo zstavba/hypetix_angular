@@ -9,6 +9,10 @@ import { PriceTypeService } from '../../../../auth/API/price-type.service';
 import { TrafficType } from '../../../../auth/Classes/traffic-type';
 import { TrafficTypeService } from '../../../../auth/API/traffic-type.service';
 import { ExchangeRates } from '../../../../auth/Classes/exchange-rates';
+import { ExchangeRatesService } from '../../../../auth/API/exchange-rates.service';
+import { response } from 'express';
+import { DebitNotes } from '../../../../auth/Classes/debit-notes';
+import { DebitNotesService } from '../../../../auth/API/debit-notes.service';
 
 @Component({
   selector: 'app-coders-commercial',
@@ -26,12 +30,15 @@ export class CodersCommercialComponent implements OnInit {
   public priceTypeLits: Array<PriceType> = new Array<PriceType>();
   public TrafficTypeList: Array<TrafficType> = new Array<TrafficType>();
   public ExchangeRatesList: Array<ExchangeRates> = new Array<ExchangeRates>();
+  public DebitNotesList: Array<DebitNotes> = new Array<DebitNotes>();
 
   constructor(
     private _ShippingMethodService: ShippingMethodService,
     private _CurrencieService: CurrencieService,
     private _PriceTypeService: PriceTypeService,
-    private _TrafficTypeService: TrafficTypeService
+    private _TrafficTypeService: TrafficTypeService,
+    private _ExchangeRatesService: ExchangeRatesService,
+    private _DebitNotesService: DebitNotesService
   ){}
 
   ngOnInit(): void {
@@ -39,6 +46,8 @@ export class CodersCommercialComponent implements OnInit {
     this.getCurrencies();
     this.getPriceTypes();
     this.getTrafficTypes();
+    this.getExchnageRates();
+    this.getDebitNotes();
     this.updateTable();
   }
 
@@ -68,6 +77,16 @@ export class CodersCommercialComponent implements OnInit {
         title: "Vrste Tečajne liste",
         items: this.ExchangeRatesList.length,
         url: "/dashboard/coders/commercials/exchange/rates"
+      },
+      {
+        title: "Tipi reklamacij",
+        items: [],
+        url: "/dashboard/coders/commercials/complaints"
+      },
+      {
+        title: "Bremepisi",
+        items: this.DebitNotesList.length,
+        url: "/dashboard/coders/commercials/debit/notes"
       }
     ]
   }
@@ -96,12 +115,28 @@ export class CodersCommercialComponent implements OnInit {
     )
   }
 
-getTrafficTypes = () => {
-  this._TrafficTypeService.get().subscribe(
-    (response: TrafficType[]) => {
-      this.TrafficTypeList = response; 
-    }
-  )
-}
+  getTrafficTypes = () => {
+    this._TrafficTypeService.get().subscribe(
+      (response: TrafficType[]) => {
+        this.TrafficTypeList = response; 
+      }
+    )
+  }
+
+  getExchnageRates = () => {
+    this._ExchangeRatesService.get().subscribe(
+      (response: ExchangeRates[]) => {
+        this.ExchangeRatesList = response; 
+      }
+    )
+  }
+
+  getDebitNotes = () => {
+    this._DebitNotesService.get().subscribe(
+      (response: DebitNotes[]) => {
+        this.DebitNotesList = response; 
+      }
+    )
+  }
 
 }

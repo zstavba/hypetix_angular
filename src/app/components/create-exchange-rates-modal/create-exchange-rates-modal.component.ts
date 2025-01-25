@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ExchangeRates } from '../../../auth/Classes/exchange-rates';
 import { ExchangeRatesService } from '../../../auth/API/exchange-rates.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SessionService } from '../../../auth/API/session.service';
 import { CurrencieService } from '../../../auth/API/currencie.service';
 import { Currencie } from '../../../auth/Classes/currencie';
@@ -10,7 +10,10 @@ import { Generator } from '../../../auth/functions/generator';
 
 @Component({
   selector: 'create-exchange-rates-modal',
-  imports: [],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule
+  ],
   templateUrl: './create-exchange-rates-modal.component.html',
   styleUrl: './create-exchange-rates-modal.component.scss'
 })
@@ -33,7 +36,7 @@ export class CreateExchangeRatesModalComponent implements OnInit {
     unit: new FormControl('',Validators.required),
     course: new FormControl('',Validators.required),
     status: new FormControl('',Validators.required),
-    course_value: new FormControl('',Validators.required),
+    course_value: new FormControl('',Validators.required)
   })
 
 
@@ -45,6 +48,7 @@ export class CreateExchangeRatesModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getCurrencies();
     this.ECGroup.patchValue({
       fk_user_id: this._SessionService.getSessionData()
     });
@@ -70,6 +74,10 @@ export class CreateExchangeRatesModalComponent implements OnInit {
 
   closeCreateECModal = () => {
     $('.create_exchange_rates_modal').fadeOut();
+  }
+
+  toggleComboBoxMenu = (item: string) => {
+    $(`.${item}`).fadeToggle();
   }
 
   saveData = () => {
