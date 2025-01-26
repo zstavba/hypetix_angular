@@ -115,6 +115,9 @@ import { SearchExchangeRatesPipe } from '../auth/Pipes/search-exchange-rates.pip
 import { DebitNotes } from '../auth/Classes/debit-notes';
 import { DebitNotesService } from '../auth/API/debit-notes.service';
 import { SearchDebitNotesPipe } from '../auth/Pipes/search-debit-notes.pipe';
+import { Credits } from '../auth/Classes/credits';
+import { CreditsService } from '../auth/API/credits.service';
+import { SearchCreditsPipe } from '../auth/Pipes/search-credits.pipe';
 
 @Component({
   standalone: true,
@@ -234,7 +237,10 @@ import { SearchDebitNotesPipe } from '../auth/Pipes/search-debit-notes.pipe';
     SearchExchangeRatesPipe,
     DebitNotes,
     DebitNotesService,
-    SearchDebitNotesPipe
+    SearchDebitNotesPipe,
+    Credits,
+    CreditsService,
+    SearchCreditsPipe
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

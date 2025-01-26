@@ -40,7 +40,7 @@ export class CcDebitNotesComponent implements OnInit {
   public URLsList: Array<any> = new Array<any>();
   public selectedDebitNoteItem: DebitNotes = new DebitNotes();
   public searchNotes: string = '';
-
+  
 
   constructor(
     private _SessionService: SessionService,

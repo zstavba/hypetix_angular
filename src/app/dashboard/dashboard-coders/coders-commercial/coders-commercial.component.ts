@@ -13,6 +13,8 @@ import { ExchangeRatesService } from '../../../../auth/API/exchange-rates.servic
 import { response } from 'express';
 import { DebitNotes } from '../../../../auth/Classes/debit-notes';
 import { DebitNotesService } from '../../../../auth/API/debit-notes.service';
+import { Credits } from '../../../../auth/Classes/credits';
+import { CreditsService } from '../../../../auth/API/credits.service';
 
 @Component({
   selector: 'app-coders-commercial',
@@ -31,6 +33,8 @@ export class CodersCommercialComponent implements OnInit {
   public TrafficTypeList: Array<TrafficType> = new Array<TrafficType>();
   public ExchangeRatesList: Array<ExchangeRates> = new Array<ExchangeRates>();
   public DebitNotesList: Array<DebitNotes> = new Array<DebitNotes>();
+  public CredistList: Array<Credits> = new Array<Credits>();
+
 
   constructor(
     private _ShippingMethodService: ShippingMethodService,
@@ -38,7 +42,8 @@ export class CodersCommercialComponent implements OnInit {
     private _PriceTypeService: PriceTypeService,
     private _TrafficTypeService: TrafficTypeService,
     private _ExchangeRatesService: ExchangeRatesService,
-    private _DebitNotesService: DebitNotesService
+    private _DebitNotesService: DebitNotesService,
+    private _CreditsService: CreditsService
   ){}
 
   ngOnInit(): void {
@@ -48,53 +53,8 @@ export class CodersCommercialComponent implements OnInit {
     this.getTrafficTypes();
     this.getExchnageRates();
     this.getDebitNotes();
+    this.getCredits();
     this.updateTable();
-  }
-
-  updateTable = () => {
-    this.tableItems = [
-      {
-        title: "Načini odprem",
-        items: this.ShippingMethodList.length,
-        url: "/dashboard/coders/commercials/shippping/method"
-      },
-      {
-        title: "Valuta",
-        items: this.CurrenciesList.length,
-        url: "/dashboard/coders/commercials/currencie"
-      },
-      {
-        title: "Tipi Cen",
-        items: this.priceTypeLits.length,
-        url: "/dashboard/coders/commercials/price/type"
-      },
-      {
-        title: "Vrste Prometa",
-        items: this.TrafficTypeList.length,
-        url: "/dashboard/coders/commercials/traffic/type"
-      },
-      {
-        title: "Vrste Tečajne liste",
-        items: this.ExchangeRatesList.length,
-        url: "/dashboard/coders/commercials/exchange/rates"
-      },
-      {
-        title: "Tipi reklamacij",
-        items: [],
-        url: "/dashboard/coders/commercials/complaints"
-      },
-      {
-        title: "Bremepisi",
-        items: this.DebitNotesList.length,
-        url: "/dashboard/coders/commercials/debit/notes"
-      },
-      {
-        title: "Dobropisi",
-        items: [],
-        url: "/dashboard/coders/commercials/credits"
-      }
-
-    ]
   }
 
   getShippingMethod = () => {
@@ -143,6 +103,60 @@ export class CodersCommercialComponent implements OnInit {
         this.DebitNotesList = response; 
       }
     )
+  }
+
+  getCredits = () => {
+    this._CreditsService.get().subscribe(
+      (response: Credits[]) => {
+        this.CredistList = response; 
+      }
+    );
+  }
+
+  updateTable = () => {
+    this.tableItems = [
+      {
+        title: "Načini odprem",
+        items: this.ShippingMethodList.length,
+        url: "/dashboard/coders/commercials/shippping/method"
+      },
+      {
+        title: "Valuta",
+        items: this.CurrenciesList.length,
+        url: "/dashboard/coders/commercials/currencie"
+      },
+      {
+        title: "Tipi Cen",
+        items: this.priceTypeLits.length,
+        url: "/dashboard/coders/commercials/price/type"
+      },
+      {
+        title: "Vrste Prometa",
+        items: this.TrafficTypeList.length,
+        url: "/dashboard/coders/commercials/traffic/type"
+      },
+      {
+        title: "Vrste Tečajne liste",
+        items: this.ExchangeRatesList.length,
+        url: "/dashboard/coders/commercials/exchange/rates"
+      },
+      {
+        title: "Tipi reklamacij",
+        items: [],
+        url: "/dashboard/coders/commercials/complaints"
+      },
+      {
+        title: "Bremepisi",
+        items: this.DebitNotesList.length,
+        url: "/dashboard/coders/commercials/debit/notes"
+      },
+      {
+        title: "Dobropisi",
+        items: this.CredistList.length,
+        url: "/dashboard/coders/commercials/credits"
+      }
+
+    ]
   }
 
 }

@@ -51,60 +51,6 @@ export class CodersDefaultsComponent implements OnInit {
     this.updateTableData();
   }
 
-
-  updateTableData = () => {
-    this.TableItemsList = [
-      {
-        title: "Delovni Centri",
-        items: this.WorkCentersList.length,
-        category: "Delovni center",
-        url: '/dashboard/coders/defaults/work/centers',
-      },
-      {
-        title: "Države",
-        items: this.CountryList.length,
-        category: "Država",
-        url: '/dashboard/coders/defaults/country',
-      },
-      {
-        title: "Jeziki",
-        items: this.LanguagesList.length,
-        category: "Jezik",
-        url: '/dashboard/coders/defaults/languages',
-      },
-      {
-        title: "Kontrolni Plan",
-        items: this.LanguagesList.length,
-        category: "Kontrolni Plan",
-        url: '/dashboard/coders/defaults/control/plan',
-      },
-      {
-        title: "Dobavni Pogoji",
-        items: this.DCList.length,
-        category: "Dobavni Pogoji",
-        url: '/dashboard/coders/defaults/delivery/conditions',
-      },
-      {
-        title: "Plačilni Pogoji",
-        items: this.PaymentTermsList.length,
-        category: "Plačilni Pogoji",
-        url: '/dashboard/coders/defaults/payment/terms',
-      },
-      {
-        title: "Pošte",
-        items: this.ZipCodeList.length,
-        category: "Pošte",
-        url: '/dashboard/coders/defaults/zip/code',
-      },
-      {
-        title: "Sektor",
-        items: this.SectorList.length,
-        category: "Sektor",
-        url: '/dashboard/coders/defaults/sector',
-      },
-    ]
-  }
-
   getWorkCenters = () => {
     this._WorkCenterService.get().subscribe(
       (response: WorkCenterClassification[]) => {
@@ -159,6 +105,60 @@ export class CodersDefaultsComponent implements OnInit {
         this.SectorList = response;
       }
     )
+  }
+
+  
+  updateTableData = () => {
+    this.TableItemsList = [
+      {
+        title: "Delovni Centri",
+        items: this.WorkCentersList.length,
+        category: "Delovni center",
+        url: '/dashboard/coders/defaults/work/centers',
+      },
+      {
+        title: "Države",
+        items: this.CountryList.length,
+        category: "Država",
+        url: '/dashboard/coders/defaults/country',
+      },
+      {
+        title: "Jeziki",
+        items: this.LanguagesList.length,
+        category: "Jezik",
+        url: '/dashboard/coders/defaults/languages',
+      },
+      {
+        title: "Kontrolni Plan",
+        items: this.LanguagesList.length,
+        category: "Kontrolni Plan",
+        url: '/dashboard/coders/defaults/control/plan',
+      },
+      {
+        title: "Dobavni Pogoji",
+        items: this.DCList.length,
+        category: "Dobavni Pogoji",
+        url: '/dashboard/coders/defaults/delivery/conditions',
+      },
+      {
+        title: "Plačilni Pogoji",
+        items: this.PaymentTermsList.length,
+        category: "Plačilni Pogoji",
+        url: '/dashboard/coders/defaults/payment/terms',
+      },
+      {
+        title: "Pošte",
+        items: this.ZipCodeList.length,
+        category: "Pošte",
+        url: '/dashboard/coders/defaults/zip/code',
+      },
+      {
+        title: "Sektor",
+        items: this.SectorList.length,
+        category: "Sektor",
+        url: '/dashboard/coders/defaults/sector',
+      },
+    ]
   }
 
 
