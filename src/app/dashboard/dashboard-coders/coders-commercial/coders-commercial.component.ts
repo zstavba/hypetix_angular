@@ -87,7 +87,13 @@ export class CodersCommercialComponent implements OnInit {
         title: "Bremepisi",
         items: this.DebitNotesList.length,
         url: "/dashboard/coders/commercials/debit/notes"
+      },
+      {
+        title: "Dobropisi",
+        items: [],
+        url: "/dashboard/coders/commercials/credits"
       }
+
     ]
   }
 

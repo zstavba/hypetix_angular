@@ -29,6 +29,7 @@ import { CcTrafficTypeComponent } from './coders-commercial/cc-traffic-type/cc-t
 import { CcExchangeRatesComponent } from './coders-commercial/cc-exchange-rates/cc-exchange-rates.component';
 import { CcComplainsComponent } from './coders-commercial/cc-complains/cc-complains.component';
 import { CcDebitNotesComponent } from './coders-commercial/cc-debit-notes/cc-debit-notes.component';
+import { CcCreditsComponent } from './coders-commercial/cc-credits/cc-credits.component';
 
 const routes: Routes = [
   {
@@ -146,6 +147,10 @@ const routes: Routes = [
   {
     path: "commercials/debit/notes",
     component: CcDebitNotesComponent
+  },  
+  {
+    path: "commercials/credits",
+    component: CcCreditsComponent
   },
   {
     path: "production",

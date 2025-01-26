@@ -107,5 +107,9 @@ export class CcDebitNotesComponent implements OnInit {
     $('.update_debit_notes_modal').fadeIn();
   }
 
+  toggleUploadDebitNoteModal = () => {
+    $('.upload_debit_notes_modal').fadeIn();
+  }
+
 
 }
