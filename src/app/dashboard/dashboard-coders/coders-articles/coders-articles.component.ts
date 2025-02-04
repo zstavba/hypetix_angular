@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AlternativeChipers } from '../../../../auth/Classes/alternative-chipers';
 import { Classification } from '../../../../auth/Classes/classification';
@@ -46,17 +46,30 @@ export class CodersArticlesComponent implements OnInit{
 
   ngOnInit(): void {
     this.loadData();
-
   }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if(
+          changes["ChippersList"] ||
+          changes["ClassificationsList"] ||
+          changes["GroupList"] ||
+          changes["ArticleTypeList"] || 
+          changes["MeassurementUnitsList"] || 
+          changes["TaxList"] ||
+          changes["CustomTariffsList"]
+        ){
+          this.loadData()
+        }      
+    }
+
+
   loadData =  async () => {
     // Fetch all data in parallel (assuming these are promises).
-    await Promise.all([
-      this.getGroupTypes(),
-      this.getArticleTypes(),
-      this.getMeassurmentUnits(),
-      this.getTaxes(),
-      this.getCT(),
-    ]);
+    this.getGroupTypes(),
+    this.getArticleTypes(),
+    this.getMeassurmentUnits(),
+    this.getTaxes(),
+    this.getCT(),
   
     // Update the table items list after data is fetched.
     this.updateTableItemsList();

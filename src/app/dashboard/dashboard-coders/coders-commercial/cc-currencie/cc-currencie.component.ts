@@ -108,4 +108,8 @@ export class CcCurrencieComponent implements OnInit {
     $('.update_curencie_modal').fadeIn();
   }
 
+  toggleUploadModal = () => {
+    $('.upload_currencie_modal').fadeIn();
+  }
+
 }

@@ -10,15 +10,18 @@ import { Generator } from '../../../../../auth/functions/generator';
 import { DeliveryConditions } from '../../../../../auth/Classes/delivery-conditions';
 import { DeliveryConditionsService } from '../../../../../auth/API/delivery-conditions.service';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { User } from '../../../../../auth/Classes/user';
+import { SessionService } from '../../../../../auth/API/session.service';
+import { NavigationsComponent } from '../../../../components/navigations/navigations.component';
 @Component({
   selector: 'app-cd-delivery-conditions',
   imports: [
-    RouterLink,
     UpdateDeliveryConditionsModalComponent,
     CreateDeliveryConditionsModalComponent,
     UploadDeliveryConditionsModalComponent,
     NotificationComponent,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NavigationsComponent
   ],
   templateUrl: './cd-delivery-conditions.component.html',
   styleUrl: './cd-delivery-conditions.component.scss'
@@ -30,13 +33,37 @@ export class CdDeliveryConditionsComponent implements OnInit {
   public selectedDCItem: DeliveryConditions = new DeliveryConditions();
   public ipp: number = 9;
   public p: any; 
+  public UserInformation: User | null = new User();
+  public URLsList: Array<any> = new Array<any>();
+
+
 
   constructor(
+    private _SessionService: SessionService,
     private _DCService: DeliveryConditionsService
   ){}
 
   ngOnInit(): void {
+    this.UserInformation = this._SessionService.getSessionData();
     this.getDeliverConditions();
+    this.URLsList = [
+      {
+        title: "Domov",
+        url: '/dashboard',
+      },
+      {
+        title: "Šifranti",
+        url:  '/dashboard/coders',
+      },
+      {
+        title: "Splošno",
+        url:  '/dashboard/coders/defaults',
+      },
+      {
+        title: "Dobavni pogoji",
+        url: '/dashboard/coders/default/delivery/conditions'
+      }
+    ];
   }
 
   onNotify = (message: string) => {

@@ -11,6 +11,7 @@ import { CreateExchangeRatesModalComponent } from '../../../../components/create
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SearchExchangeRatesPipe } from '../../../../../auth/Pipes/search-exchange-rates.pipe';
 import { UpdateExchangeRatesModalComponent } from '../../../../components/update-exchange-rates-modal/update-exchange-rates-modal.component';
+import { UploadExchangeRatesModalComponent } from '../../../../components/upload-exchange-rates-modal/upload-exchange-rates-modal.component';
 
 @Component({
   selector: 'app-cc-exchange-rates',
@@ -22,7 +23,8 @@ import { UpdateExchangeRatesModalComponent } from '../../../../components/update
     CreateExchangeRatesModalComponent,
     NgxPaginationModule,
     SearchExchangeRatesPipe,
-    UpdateExchangeRatesModalComponent
+    UpdateExchangeRatesModalComponent,
+    UploadExchangeRatesModalComponent
   ],
   templateUrl: './cc-exchange-rates.component.html',
   styleUrl: './cc-exchange-rates.component.scss'
@@ -104,5 +106,9 @@ export class CcExchangeRatesComponent implements OnInit {
   toggleUpdateModal = (item: ExchangeRates) => {
     $('.update_exchnage_rates_modal').fadeIn();
     this.selectedERItem = item; 
+  }
+
+  toggleUploadERModal = () => {
+    $('.upload_exchange_rates_modal').fadeIn();
   }
 }

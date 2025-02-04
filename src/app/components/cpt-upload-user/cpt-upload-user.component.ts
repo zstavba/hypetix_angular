@@ -39,6 +39,7 @@ export class CptUploadUserComponent implements OnInit {
     this.UserGroup.patchValue({
       file:file
     });
+    console.log(file);
   }
 
   saveData = () => {
@@ -47,7 +48,7 @@ export class CptUploadUserComponent implements OnInit {
         console.log(response.message);
       },
       (error: any) => {
-        console.log(error.error.message);
+        console.log(error);
 
       }
     );

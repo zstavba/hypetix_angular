@@ -12,6 +12,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { UpdatePriceTypeModalComponent } from '../../../../components/update-price-type-modal/update-price-type-modal.component';
 import { SearchPriceTypePipe } from '../../../../../auth/Pipes/search-price-type.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UploadPriceTypeModalComponent } from '../../../../components/upload-price-type-modal/upload-price-type-modal.component';
 
 
 @Component({
@@ -24,7 +25,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     UpdatePriceTypeModalComponent,
     SearchPriceTypePipe,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    UploadPriceTypeModalComponent
   ],
   templateUrl: './cc-price-type.component.html',
   styleUrl: './cc-price-type.component.scss'
@@ -105,6 +107,10 @@ export class CcPriceTypeComponent implements OnInit {
   toggleUpdateModal = (item: PriceType) => {
       this.selectedPriceType = item; 
       $('.update_price_type_modal').fadeIn();
+  }
+
+  toggleUploadModal = () => {
+    $('.upload_price_type_modal').fadeIn();
   }
 
 }

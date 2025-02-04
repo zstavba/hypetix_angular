@@ -11,7 +11,7 @@
                 <button (click)="openCreateCurrencieModal()" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
                     <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 1V4H1V6H4V9H6V6H9V4H6V1H4ZM3 20.0066V11H5V19H13V14C13 13.45 13.45 13 14 13L19 12.999V5H11V3H20.0066C20.5552 3 21 3.45576 21 4.00247V15L15 20.996L4.00221 21C3.4487 21 3 20.5551 3 20.0066ZM18.171 14.999L15 15V18.169L18.171 14.999Z"></path></svg>
                 </button>
-                <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                <button (click)="toggleUploadModal()" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
                     <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 19H20V12H22V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V12H4V19ZM13 9V16H11V9H6L12 3L18 9H13Z"></path></svg>            
                 </button>
             </div>
@@ -53,7 +53,7 @@
         </div>
     </div>
 </div>
-<div class="grid grid-cols-3 gap-4 p-4">
+<div class="grid sm:grid-cols-3 gap-4 p-4">
     @for((currencie of CurrenciesList | searchCurrencie: searchCurrencie | paginate: {itemsPerPage: ipp, currentPage: p}); track currencie){
         <div class="rounded-lg bg-gradient-to-r from-sky-400 to-blue-600 p-1">
             <div class="rounded-lg bg-slate-50 px-4 py-4 dark:bg-navy-900 sm:px-5">
@@ -109,7 +109,7 @@
         </div>
     }
 </div>
-<div class="grid grid-cols-2 gap-4 p-4">
+<div class="grid sm:grid-cols-2 gap-4 p-4">
     <div></div>
     <div class="w-full p-2 text-right bg-gray-50/20 rounded">
         <pagination-controls class="pt-2" (pageChange)="p = $event"></pagination-controls>

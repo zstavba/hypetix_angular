@@ -19,9 +19,10 @@ export class PriceTypeService {
   }
 
 
-  uplod = (data: any): Observable<any>   => {
+  upload = (data: any): Observable<any>   => {
     let formData: FormData = new FormData();
-    formData.append("price_type_file",data.price_type_file);
+    formData.append("fk_user_id",JSON.stringify(data.fk_user_id));
+    formData.append("price_type_file",data.file);
     return this.http.post<any>(`${this.http_link}/upload`,formData);
   }
 

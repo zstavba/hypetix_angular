@@ -25,7 +25,8 @@ export class ExchangeRatesService {
 
   upload = (data: any): Observable<any> => {
     let formData: FormData = new FormData();
-    formData.append('exchange_rates_file',data.exchange_rates_file);
+    formData.append('exchange_rates_file',data.file);
+    formData.append("fk_user_id",JSON.stringify(data.fk_user_id))
     return this.http.post<any>(`${this.http_link}/upload`,formData);
   }
 

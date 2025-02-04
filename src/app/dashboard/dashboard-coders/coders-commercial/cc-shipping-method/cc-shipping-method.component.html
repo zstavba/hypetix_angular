@@ -54,7 +54,7 @@
         </div>
     </div>
 </div>
-<div class="grid grid-cols-3 gap-4 p-4">
+<div class="grid sm:grid-cols-3 gap-4 p-4">
     @for((method of ShippingMethodList | searchShippingMethod: searchMethod | paginate: {itemsPerPage: ipp, currentPage: p}); track method){
         <div class="rounded-lg bg-gradient-to-r from-sky-400 to-blue-600 p-1">
             <div class="rounded-lg bg-slate-50 px-4 py-4 dark:bg-navy-900 sm:px-5">
@@ -110,7 +110,7 @@
         </div>
     }
 </div>
-<div class="grid grid-cols-2 gap-4 p-4">
+<div class="grid sm:grid-cols-2 gap-4 p-4">
     <div></div>
     <div class="w-full p-2 text-right bg-gray-400 rounded">
         <pagination-controls class="pt-2" (pageChange)="p = $event"></pagination-controls>

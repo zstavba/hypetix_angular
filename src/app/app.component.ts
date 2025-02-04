@@ -118,6 +118,18 @@ import { SearchDebitNotesPipe } from '../auth/Pipes/search-debit-notes.pipe';
 import { Credits } from '../auth/Classes/credits';
 import { CreditsService } from '../auth/API/credits.service';
 import { SearchCreditsPipe } from '../auth/Pipes/search-credits.pipe';
+import { Invoices } from '../auth/Classes/invoices';
+import { InvoicesService } from '../auth/API/invoices.service';
+import { SearchInvoicesPipe } from '../auth/Pipes/search-invoices.pipe';
+import { RateSheet } from '../auth/Classes/rate-sheet';
+import { RatesheetService } from '../auth/API/ratesheet.service';
+import { SearchRateSheetsPipe } from '../auth/Pipes/search-rate-sheets.pipe';
+import { SupplierOrders } from '../auth/Classes/supplier-orders';
+import { SupplierOrdersService } from '../auth/API/supplier-orders.service';
+import { SearchSupplierOrderPipe } from '../auth/Pipes/search-supplier-order.pipe';
+import { CustomerOrder } from '../auth/Classes/customer-order';
+import { CustomerOrderService } from '../auth/API/customer-order.service';
+import { SearchCustomerOrderPipe } from '../auth/Pipes/search-customer-order.pipe';
 
 @Component({
   standalone: true,
@@ -240,7 +252,19 @@ import { SearchCreditsPipe } from '../auth/Pipes/search-credits.pipe';
     SearchDebitNotesPipe,
     Credits,
     CreditsService,
-    SearchCreditsPipe
+    SearchCreditsPipe,
+    Invoices,
+    InvoicesService,
+    SearchInvoicesPipe,
+    RateSheet,
+    RatesheetService,
+    SearchRateSheetsPipe,
+    SupplierOrders,
+    SupplierOrdersService,
+    SearchSupplierOrderPipe,
+    CustomerOrder,
+    CustomerOrderService,
+    SearchCustomerOrderPipe
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

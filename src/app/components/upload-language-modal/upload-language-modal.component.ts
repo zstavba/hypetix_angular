@@ -27,7 +27,7 @@ export class UploadLanguageModalComponent implements OnInit {
   }
 
   getSelectedFile = (event:any) => {
-    let file:File = event.taget.files[0];
+    let file:File = event.target.files[0];
     this.FileGroup.patchValue({
       file:file
     });

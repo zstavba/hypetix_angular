@@ -11,18 +11,21 @@ import { response } from 'express';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SearchPaymentTermPipe } from '../../../../../auth/Pipes/search-payment-term.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NavigationsComponent } from '../../../../components/navigations/navigations.component';
+import { User } from '../../../../../auth/Classes/user';
+import { SessionService } from '../../../../../auth/API/session.service';
 @Component({
   selector: 'app-cd-payment-terms',
   imports: [
     ReactiveFormsModule,
     FormsModule,
-    RouterLink,
     NotificationComponent,
     CreatePaymentTermsModalComponent,
     UpdatePaymentTermsModalComponent,
     UploadPaymentTermsModalComponent,
     NgxPaginationModule,
-    SearchPaymentTermPipe
+    SearchPaymentTermPipe,
+    NavigationsComponent
   ],
   templateUrl: './cd-payment-terms.component.html',
   styleUrl: './cd-payment-terms.component.scss'
@@ -35,14 +38,36 @@ export class CdPaymentTermsComponent implements OnInit{
   public p: any; 
   public selectedPaymentTerm: PaymentTerms = new PaymentTerms();
   public searchTerm: string = '';
+  public URLsList: Array<any> = new Array<any>();
+  public UserInformation: User | null = new User();
 
 
   constructor(
+    private _SessionService: SessionService,
     private _PTService: PaymentTermsService
   ){}
 
   ngOnInit(): void {
     this.getTerms();
+    this.UserInformation = this._SessionService.getSessionData();
+    this.URLsList = [
+      {
+        title: "Domov",
+        url: '/dashboard',
+      },
+      {
+        title: "Šifranti",
+        url:  '/dashboard/coders',
+      },
+      {
+        title: "Splošno",
+        url:  '/dashboard/coders/defaults',
+      },
+      {
+        title: "Plačilni pogoji",
+        url: '/dashboard/coders/default/payment/terms'
+      }
+    ];
   }
 
   onNotify = (message: string) => {

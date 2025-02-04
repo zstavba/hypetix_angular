@@ -9,6 +9,9 @@ import { RouterLink } from '@angular/router';
 import { Country } from '../../../../../auth/Classes/country';
 import { BankService } from '../../../../../auth/API/bank.service';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { User } from '../../../../../auth/Classes/user';
+import { SessionService } from '../../../../../auth/API/session.service';
+import { NavigationsComponent } from '../../../../components/navigations/navigations.component';
 @Component({
   selector: 'app-cd-country',
   imports: [
@@ -18,8 +21,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NotificationComponent,
     ReactiveFormsModule,
     FormsModule,
-    RouterLink,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NavigationsComponent
   ],
   templateUrl: './cd-country.component.html',
   styleUrl: './cd-country.component.scss'
@@ -32,13 +35,36 @@ export class CdCountryComponent  implements OnInit {
   public selectedCountry: Country = new Country();
   public ipp: number = 9;
   public p: any; 
+  public UserInformation: User | null = new User();
+  public URLsList: Array<any> = new Array<any>();
+
 
   constructor(
+    private _SessionService: SessionService,
     private _BankService: BankService
   ){}
 
   ngOnInit(): void {
+    this.UserInformation = this._SessionService.getSessionData();
     this.getCountry();
+    this.URLsList = [
+      {
+        title: "Domov",
+        url: '/dashboard',
+      },
+      {
+        title: "Šifranti",
+        url:  '/dashboard/coders',
+      },
+      {
+        title: "Splošno",
+        url:  '/dashboard/coders/defaults',
+      },
+      {
+        title: "Države",
+        url: '/dashboard/coders/default/country'
+      }
+    ];
   }
 
   onNotify(message: string) {

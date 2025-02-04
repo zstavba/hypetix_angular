@@ -15,6 +15,14 @@ import { DebitNotes } from '../../../../auth/Classes/debit-notes';
 import { DebitNotesService } from '../../../../auth/API/debit-notes.service';
 import { Credits } from '../../../../auth/Classes/credits';
 import { CreditsService } from '../../../../auth/API/credits.service';
+import { Invoices } from '../../../../auth/Classes/invoices';
+import { InvoicesService } from '../../../../auth/API/invoices.service';
+import { RateSheet } from '../../../../auth/Classes/rate-sheet';
+import { RatesheetService } from '../../../../auth/API/ratesheet.service';
+import { SupplierOrders } from '../../../../auth/Classes/supplier-orders';
+import { SupplierOrdersService } from '../../../../auth/API/supplier-orders.service';
+import { CustomerOrderService } from '../../../../auth/API/customer-order.service';
+import { CustomerOrder } from '../../../../auth/Classes/customer-order';
 
 @Component({
   selector: 'app-coders-commercial',
@@ -34,6 +42,10 @@ export class CodersCommercialComponent implements OnInit {
   public ExchangeRatesList: Array<ExchangeRates> = new Array<ExchangeRates>();
   public DebitNotesList: Array<DebitNotes> = new Array<DebitNotes>();
   public CredistList: Array<Credits> = new Array<Credits>();
+  public InovicesList: Array<Invoices> = new Array<Invoices>();
+  public RateSheetList: Array<RateSheet> = new Array<RateSheet>();
+  public SupplierOrdersList: Array<SupplierOrders> = new Array<SupplierOrders>();
+  public CustomerOrderList: Array<CustomerOrder> = new Array<CustomerOrder>();
 
 
   constructor(
@@ -43,7 +55,11 @@ export class CodersCommercialComponent implements OnInit {
     private _TrafficTypeService: TrafficTypeService,
     private _ExchangeRatesService: ExchangeRatesService,
     private _DebitNotesService: DebitNotesService,
-    private _CreditsService: CreditsService
+    private _CreditsService: CreditsService,
+    private _InovicesService: InvoicesService,
+    private _RateSheetService: RatesheetService,
+    private _SupplierOrderService: SupplierOrdersService,
+    private _CustomerOrderSerivce: CustomerOrderService
   ){}
 
   ngOnInit(): void {
@@ -54,6 +70,10 @@ export class CodersCommercialComponent implements OnInit {
     this.getExchnageRates();
     this.getDebitNotes();
     this.getCredits();
+    this.getInovices();
+    this.getRateSheets();
+    this.getSupplierOrders();
+    this.getCustomerOrders();
     this.updateTable();
   }
 
@@ -61,7 +81,7 @@ export class CodersCommercialComponent implements OnInit {
     this._ShippingMethodService.get().subscribe(
       (response: ShippingMethod[]) => {
         this.ShippingMethodList = response;
-      }
+      } 
     )
   }
 
@@ -113,6 +133,39 @@ export class CodersCommercialComponent implements OnInit {
     );
   }
 
+  getInovices = () => {
+    this._InovicesService.get().subscribe(
+      (response: Invoices[]) => {
+        this.InovicesList = response;
+      }
+    )
+  }
+
+  getRateSheets = () => {
+    this._RateSheetService.getItems().subscribe(
+      (response: RateSheet[]) => {
+        this.RateSheetList = response; 
+      }
+    )
+  }
+
+  getSupplierOrders = () => {
+    this._SupplierOrderService.getItem().subscribe(
+      (response: SupplierOrders[]) => {
+        this.SupplierOrdersList = response;
+      }
+    );
+  }
+
+  getCustomerOrders = () => {
+    this._CustomerOrderSerivce.getItems().subscribe(
+      (response: CustomerOrder[]) => {
+        this.CustomerOrderList = response; 
+      }
+    )
+  }
+
+
   updateTable = () => {
     this.tableItems = [
       {
@@ -154,6 +207,26 @@ export class CodersCommercialComponent implements OnInit {
         title: "Dobropisi",
         items: this.CredistList.length,
         url: "/dashboard/coders/commercials/credits"
+      },
+      {
+        title: "Fakture",
+        items: this.InovicesList.length,
+        url: "/dashboard/coders/commercials/invoices"
+      },
+      {
+        title: "Tečajna lista",
+        items: this.RateSheetList.length,
+        url: "/dashboard/coders/commercials/rate/sheet"
+      },
+      {
+        title: "Naročila dobavitelja",
+        items: this.SupplierOrdersList.length,
+        url: "/dashboard/coders/commercials/supplier/orders"
+      },
+      {
+        title: "Naročila kupcev",
+        items: this.CustomerOrderList.length,
+        url: "/dashboard/coders/commercials/customer/orders"
       }
 
     ]

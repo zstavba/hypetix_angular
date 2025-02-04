@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { UserService } from '../../../../auth/API/user.service';
 import { User } from '../../../../auth/Classes/user';
 import { RouterLink } from '@angular/router';
@@ -41,15 +41,32 @@ export class CodersPartnersComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    this.setTableItems();
     this.getUserByType(UserType.partner)
     this.getUserByType(UserType.buyers)
-    this.getUserByType(UserType.recipent)
+    this.getUserByType(UserType.suppliers)
     this.getUserByType(UserType.passengers)
     this.getUserByType(UserType.worker)
     this.getUserByType(UserType.spenders)
+    this.setTableItems();
 
-
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes["PartnersList"] ||
+       changes["BuyersList"] ||
+       changes["RecipentsList"] ||
+       changes["PassengersList"] ||
+       changes["WorkersList"] ||
+       changes["SpendersList"] ){
+      this.getUserByType(UserType.partner)
+      this.getUserByType(UserType.buyers)
+      this.getUserByType(UserType.suppliers)
+      this.getUserByType(UserType.passengers)
+      this.getUserByType(UserType.worker)
+      this.getUserByType(UserType.spenders)
+      this.setTableItems();
+  
+    }
+    
   }
 
   getUserByType = (type: string) => {
@@ -72,7 +89,7 @@ export class CodersPartnersComponent implements OnInit {
           case UserType.buyers:
               this.BuyersList = response; 
             break;
-          case UserType.recipent:
+          case UserType.suppliers:
               this.RecipentsList = response; 
             break;
 
@@ -89,7 +106,7 @@ export class CodersPartnersComponent implements OnInit {
         title: "Partnerji",
         items: this.PartnersList.length,
         category: "Uporabniki",
-        url: "/dashboard/coders/partners/table/partners",
+        url: "/dashboard/coders/partners/table/partner",
       },
       {
         title: "Kupci",
@@ -101,7 +118,7 @@ export class CodersPartnersComponent implements OnInit {
         title: "Dobavitelji",
         items: this.RecipentsList.length,
         category: "Uporabniki",
-        url: "/dashboard/coders/partners/table/recipents",
+        url: "/dashboard/coders/partners/table/suppliers",
       },
       {
         title: "Potniki",

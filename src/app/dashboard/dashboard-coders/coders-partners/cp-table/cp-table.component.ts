@@ -7,15 +7,20 @@ import { CptUploadUserComponent } from '../../../../components/cpt-upload-user/c
 import $ from 'jquery';
 import { CptCreateUserComponent } from '../../../../components/cpt-create-user/cpt-create-user.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SearchUserPipe } from '../../../../../auth/Pipes/search-user.pipe';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
   selector: 'app-cp-table',
   imports: [
+    ReactiveFormsModule,
+    FormsModule,
     RouterLink,
     CptUploadUserComponent,
     CptCreateUserComponent,
-    NgxPaginationModule
+    NgxPaginationModule,
+    SearchUserPipe
   ],
   templateUrl: './cp-table.component.html',
   styleUrl: './cp-table.component.scss'
@@ -24,8 +29,9 @@ export class CpTableComponent implements OnInit {
   public user_type: string | null= '';
   public UsersList: Array<User> = new Array<User>();
   public tableKeys: any;
-  public ItemsPerPage: number = 7;
+  public ItemsPerPage: number = 9;
   public P: any; 
+  public searchUser: string = '';
 
 
   constructor(

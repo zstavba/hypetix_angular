@@ -26,6 +26,7 @@
     "@angular/ssr": "^19.0.2",
     "@ckeditor/ckeditor5-angular": "^9.1.0",
     "@kolkov/angular-editor": "^3.0.0-beta.2",
+    "@material-tailwind/html": "^2.3.2",
     "@syncfusion/ej2-angular-richtexteditor": "^28.1.36",
     "@tinymce/tinymce-angular": "^8.0.1",
     "angular-froala-wysiwyg": "^4.3.1",

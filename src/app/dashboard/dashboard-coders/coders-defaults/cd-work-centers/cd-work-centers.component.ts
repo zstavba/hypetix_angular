@@ -9,17 +9,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UpdateWorkCenterModalComponent } from '../../../../components/update-work-center-modal/update-work-center-modal.component';
 import { SearchWorkCentersPipe } from '../../../../../auth/Pipes/search-work-centers.pipe';
+import { User } from '../../../../../auth/Classes/user';
+import { NavigationsComponent } from '../../../../components/navigations/navigations.component';
+import { SessionService } from '../../../../../auth/API/session.service';
 
 @Component({
   selector: 'app-cd-work-centers',
   imports: [
-    RouterLink,
     CreateWorkCenterModalComponent,
     NotificationComponent,
     ReactiveFormsModule,
     FormsModule,
     NgxPaginationModule,
     UpdateWorkCenterModalComponent,
+    NavigationsComponent
   ],
   templateUrl: './cd-work-centers.component.html',
   styleUrl: './cd-work-centers.component.scss'
@@ -32,13 +35,35 @@ export class CdWorkCentersComponent implements OnInit {
   public itemsPerPage: number = 9; 
   public p: any; 
   public selectedWorkCenter: WorkCenterClassification = new WorkCenterClassification();
+  public UserInformation: User | null = new User();
+  public URLsList: Array<any> = new Array<any>();
 
   constructor(
+    private _SessionService: SessionService,
     private _WorkCenterService: WorkCenterClassificationService
   ){}
 
   ngOnInit(): void {
       this.getWorkCenters();
+      this.UserInformation = this._SessionService.getSessionData();
+      this.URLsList = [
+        {
+          title: "Domov",
+          url: '/dashboard',
+        },
+        {
+          title: "Šifranti",
+          url:  '/dashboard/coders',
+        },
+        {
+          title: "Splošno",
+          url:  '/dashboard/coders/defaults',
+        },
+        {
+          title: "Delovni centri",
+          url: '/dashboard/coders/default/work/centers'
+        }
+      ];
   }
 
 

@@ -12,12 +12,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { User } from '../../../../../auth/Classes/user';
 import { SessionService } from '../../../../../auth/API/session.service';
 import { SearchSectorPipe } from '../../../../../auth/Pipes/search-sector.pipe';
+import { NavigationsComponent } from '../../../../components/navigations/navigations.component';
 
 
 @Component({
   selector: 'app-cd-sector',
   imports: [
-    RouterLink,
     ReactiveFormsModule,
     FormsModule,
     CreateSectorModalComponent,
@@ -25,7 +25,8 @@ import { SearchSectorPipe } from '../../../../../auth/Pipes/search-sector.pipe';
     UploadSectorModalComponent,
     NotificationComponent,
     NgxPaginationModule,
-    SearchSectorPipe
+    SearchSectorPipe,
+    NavigationsComponent
   ],
   templateUrl: './cd-sector.component.html',
   styleUrl: './cd-sector.component.scss'
@@ -40,6 +41,7 @@ export class CdSectorComponent implements OnInit {
   public selectedSector: Sector = new Sector();
   public UserInformation: User | null = new User();
   public searchSector: string = '';
+  public URLsList: Array<any> = new Array<any>();
 
 
   constructor(
@@ -50,6 +52,24 @@ export class CdSectorComponent implements OnInit {
   ngOnInit(): void {
     this.UserInformation = this._SessionService.getSessionData();
     this.getSectors();
+    this.URLsList = [
+      {
+        title: "Domov",
+        url: '/dashboard',
+      },
+      {
+        title: "Šifranti",
+        url:  '/dashboard/coders',
+      },
+      {
+        title: "Splošno",
+        url:  '/dashboard/coders/defaults',
+      },
+      {
+        title: "Sektorji",
+        url: '/dashboard/coders/default/sector'
+      }
+    ];
   }
 
 

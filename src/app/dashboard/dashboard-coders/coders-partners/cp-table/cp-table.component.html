@@ -72,7 +72,7 @@
                 </div>
             </div>
 
-            <form class="flex items-center mx-auto w-full">   
+            <div  class="flex items-center mx-auto w-full">   
                 <label for="simple-search" class="sr-only">Iskanje</label>
                 <div class="relative w-full">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -80,7 +80,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2"/>
                         </svg>
                     </div>
-                    <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Iskanje po tabeli..." required />
+                    <input [(ngModel)]="searchUser" type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Iskanje po tabeli..." required />
                 </div>
                 <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -88,7 +88,7 @@
                     </svg>
                     <span class="sr-only">Search</span>
                 </button>
-            </form>
+            </div>
             
             
         </div>
@@ -99,46 +99,32 @@
             <span class="font-medium">Obvestilo</span> Seznam podatkov je trenutno prazen !
         </div>
     }@else {
-        <div class="relative overflow-x-auto my-4">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                             ID  
-                        </th>  
-                        <th scope="col" class="px-6 py-3">
-                            Ime  
-                       </th>  
-                       <th scope="col" class="px-6 py-3">
-                            Priimek 
-                       </th>    
-                       <th scope="col" class="px-6 py-3">
-                            Tip Uporabnika 
-                        </th>                          
-                    </tr>
-                </thead>
-                <tbody>
-                    @for((user of UsersList | paginate: {itemsPerPage: ItemsPerPage, currentPage: P}); track user){
-                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ user.id }}
-                            </th>
-                            <td class="px-6 py-4">
-                                {{ user.first_name }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ user.last_name  }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ user.fk_information_id.user_type  }}
-                            </td>
-                        </tr>
-                    }
-    
-                </tbody>
-            </table>
-        </div>
-    }
+        <div class="grid grid-cols-3 gap-4 p-4">
+            @for((user of UsersList |  searchUser:searchUser | paginate: {itemsPerPage: ItemsPerPage, currentPage: P}); track user){
+                <div class="text-sm leading-6">
+                    <figure class="relative flex flex-col-reverse bg-slate-100 rounded-lg p-6 dark:bg-slate-800 dark:highlight-white/5">
+                        <figcaption class="flex items-center space-x-4">
+                            <img src="assets/images/avatar.png" alt="" class="flex-none w-14 h-14 rounded-full object-cover" loading="lazy" decoding="async">
+                            <div class="flex-auto">
+                                <div class="text-base text-slate-900 font-semibold dark:text-slate-200">
+                                    {{ user.first_name }} {{ user.last_name }}
+                                </div>
+                                <div class="mt-0.5 dark:text-slate-300">
+                                   Tip uporabnika: {{ user.fk_information_id.user_type }}
+                                </div>
+                            </div>
+                        </figcaption>
 
-    
+                    </figure>
+                </div>
+            }
+        </div>
+
+     }
+</div>
+<div class="grid grid-cols-2 gap-4 p-4">
+    <div></div>
+    <div class="w-full p-4 text-right dark:bg-gray-100 rounded ">
+        <pagination-controls (pageChange)="P = $event"></pagination-controls>
+    </div>
 </div>

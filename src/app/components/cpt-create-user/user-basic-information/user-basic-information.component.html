@@ -1,0 +1,110 @@
+<div class="space-y-4">
+    <div [formGroup]="UserInformation" class="grid grid-cols-3 gap-4">
+        <div>
+            <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ime</label>
+            <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="first_name" />
+            @if(UserInformation.get('first_name')?.errors?.["required"]){
+                <p class="text-red-500">
+                    Vnos imena je obvezen. 
+                </p>
+            }
+        </div>
+        <div>
+            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Priimek</label>
+            <input type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="last_name" />
+            @if(UserInformation.get('last_name')?.errors?.["required"]){
+                <p class="text-red-500">
+                    Vnos priimka je obvezen. 
+                </p>
+            }
+        </div>
+        <div>
+            <label (click)="toggleComboBoxMenu('language_menu')" for="language" class="block text-sm/6 font-medium text-gray-900 dark:text-white">Jezik</label>
+            <div class="relative mt-2">
+              <input [value]="selectedLanguageItem.title" id="language" type="text" class="dark:bg-gray-700 dark:text-white  block w-full rounded-md bg-white py-1.5 pr-12 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" role="combobox" aria-controls="options" aria-expanded="false">
+              <button (click)="toggleComboBoxMenu('language_menu')" type="button" class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-hidden">
+                <svg class="size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                  <path fill-rule="evenodd" d="M10.53 3.47a.75.75 0 0 0-1.06 0L6.22 6.72a.75.75 0 0 0 1.06 1.06L10 5.06l2.72 2.72a.75.75 0 1 0 1.06-1.06l-3.25-3.25Zm-4.31 9.81 3.25 3.25a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 1 0-1.06-1.06L10 14.94l-2.72-2.72a.75.75 0 0 0-1.06 1.06Z" clip-rule="evenodd" />
+                </svg>
+              </button>
+          
+              <ul class="language_menu hidden absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base ring-1 shadow-lg ring-black/5 focus:outline-hidden sm:text-sm" id="options" role="listbox">
+                @for(language of LanguageList; track language){
+                    <li class="relative cursor-default py-2 pr-9 pl-3 text-gray-900 select-none" (click)="setLanguage(language)"  id="option-0" role="option" tabindex="-1">
+                        <!-- Selected: "font-semibold" -->
+                        <span class="block truncate">{{ language.title }}</span>
+                        @if(selectedLanguageItemActive && selectedLanguageItem.id == language.id){
+                            <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600">
+                                <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                                </svg>
+                             </span>
+                        }
+
+                      </li>
+                }
+          
+                <!-- More items... -->
+              </ul>
+            </div>
+        </div>
+        <div>
+            <label (click)="toggleComboBoxMenu('areas_menu')" for="language" class="block text-sm/6 font-medium text-gray-900 dark:text-white">Območja</label>
+            <div class="relative mt-2">
+              <input [value]="selectedAreaItem.area" id="language" type="text" class="dark:bg-gray-700 dark:text-white  block w-full rounded-md bg-white py-1.5 pr-12 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" role="combobox" aria-controls="options" aria-expanded="false">
+              <button  (click)="toggleComboBoxMenu('areas_menu')"type="button" class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-hidden">
+                <svg class="size-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                  <path fill-rule="evenodd" d="M10.53 3.47a.75.75 0 0 0-1.06 0L6.22 6.72a.75.75 0 0 0 1.06 1.06L10 5.06l2.72 2.72a.75.75 0 1 0 1.06-1.06l-3.25-3.25Zm-4.31 9.81 3.25 3.25a.75.75 0 0 0 1.06 0l3.25-3.25a.75.75 0 1 0-1.06-1.06L10 14.94l-2.72-2.72a.75.75 0 0 0-1.06 1.06Z" clip-rule="evenodd" />
+                </svg>
+              </button>
+          
+              <ul class="areas_menu hidden absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base ring-1 shadow-lg ring-black/5 focus:outline-hidden sm:text-sm" id="options" role="listbox">
+                @for(area of AreasList; track area){
+                    <li class="relative cursor-default py-2 pr-9 pl-3 text-gray-900 select-none" (click)="setArea(area)"  id="option-0" role="option" tabindex="-1">
+                        <!-- Selected: "font-semibold" -->
+                        <span class="block truncate">{{ area.area }}</span>
+                        @if(selectedAreaItemActive && selectedAreaItem.id == area.id){
+                            <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600">
+                                <svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                                </svg>
+                             </span>
+                        }
+
+                      </li>
+                }
+          
+                <!-- More items... -->
+              </ul>
+            </div>
+        </div>
+        <div class="">
+            <label for="user_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tip uporabnika</label>
+            <select formControlName="user_type" id="user_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option selected>Choose a country</option>
+              <option [value]="UserType().admin">Admin</option>
+              <option [value]="UserType().buyers">Kupec</option>
+              <option [value]="UserType().suppliers">Dobavitelj</option>
+              <option [value]="UserType().passengers">Potnik</option>
+              <option [value]="UserType().spenders">Špenditer</option>
+              <option [value]="UserType().bank">Banka</option>
+              <option [value]="UserType().worker">Zaposlen</option>
+            </select>
+            @if(UserInformation.get('user_type')?.errors?.["required"]){
+                <p class="text-red-500">
+                    Izbor tipa uporabnika je obvezen !
+                </p>
+            }
+        </div>
+        <div>
+            <label for="adress" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Naslov</label>
+            <input type="text" id="adress" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="adress" />
+            @if(UserInformation.get('adress')?.errors?.["required"]){
+                <p class="text-red-500">
+                    Vnos naslova je obvezen. 
+                </p>
+            }
+        </div>
+    </div>
+    <button type="button" (click)="setItems()"  class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Shrani podatke</button>
+</div>

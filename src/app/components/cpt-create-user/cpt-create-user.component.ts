@@ -4,6 +4,12 @@ import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { Tab,initTWE} from "tw-elements";
 import {MatTabsModule} from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {Tabs} from 'flowbite';
+import { UserBasicInformationComponent } from './user-basic-information/user-basic-information.component';
+import { UserContactInformationComponent } from './user-contact-information/user-contact-information.component';
+import { UserBankAccountComponent } from './user-bank-account/user-bank-account.component';
+
+
 @Component({
   standalone: true,
   selector: 'cpt-create-user',
@@ -11,6 +17,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     ReactiveFormsModule,
     MatTabsModule,
+    UserBasicInformationComponent,
+    UserContactInformationComponent,
+    UserBankAccountComponent
 
   ],
   templateUrl: './cpt-create-user.component.html',
@@ -18,45 +27,38 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 })
 export class CptCreateUserComponent implements OnInit {
 
-  public selectedTabIndex: number = 0;
-  public tabs: Array<any> = new Array<any>()
+  public UserData: Array<any> = new Array<any>();
 
-
-  public UserForm: FormGroup = new FormGroup({
-    
-  })
-
-  constructor(private cdr: ChangeDetectorRef){}
+  constructor(){}
 
   ngOnInit(): void {
-      this.tabs  = [
-        {
-          index: 0,
-          id: "tab-panel-0",
-          title: "Osnovno"
-        },
-        {
-          index: 1,
-          id: "tab-panel-1",
-          title: "Konakti"
-        }
-      ]
-  }
 
-  ngAfterViewInit(): void {
-    this.cdr.detectChanges();    
   }
 
   closeCreateUserModal = () => {
     $('.cpt-create-user').fadeOut();
   }
 
-  setVisibleContent = (ID: string) => {
-    $(`#${ID}`).fadeToggle();
+  getSelectedBasicInformation = (information: any) => {
+    this.UserData.push({
+      basic_information: information
+    })
   }
 
-  selectTab(key: number) {
-    this.selectedTabIndex = key;
+  getSelectedContactInformation = (information: any) => {
+    this.UserData.push({
+      contact_information: information
+    });
   }
+  getSelectedBankAccount = (information: any) => {
+    this.UserData.push({
+      bank_information: information
+    })
+  }
+  saveData = () => {
+    console.log(this.UserData);
+  }
+
+
 
 }

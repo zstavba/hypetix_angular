@@ -36,6 +36,7 @@ const customColors = {
   error: "#ff5724",
   "error-focus": "#f03000",
 };
+const withMT = require("@material-tailwind/html/utils/withMT");
 
 module.exports = {
   content: [

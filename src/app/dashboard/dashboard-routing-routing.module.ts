@@ -5,6 +5,7 @@ import { DashboardCodersComponent } from './dashboard-coders/dashboard-coders.co
 import { DashboardProfileComponent } from './dashboard-profile/dashboard-profile.component';
 import { DashboardWorkordersComponent } from './dashboard-workorders/dashboard-workorders.component';
 import { DashboardSettingsComponent } from './dashboard-settings/dashboard-settings.component';
+import { DashboardCommercialComponent } from './dashboard-commercial/dashboard-commercial.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
     path: "workorders",
     component: DashboardWorkordersComponent,
     loadChildren: () => import('./dashboard-workorders/dashboard-workorder-routing-routing.module').then(m => m.DashboardWorkorderRoutingRoutingModule)
+  },
+  {
+    path: "commercial",
+    component: DashboardCommercialComponent
   },
   {
     path: "settings",

@@ -10,6 +10,9 @@ import { RouterLink } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Language } from '../../../../../auth/Classes/language';
 import { SearchLanguagesPipe } from '../../../../../auth/Pipes/search-languages.pipe';
+import { User } from '../../../../../auth/Classes/user';
+import { SessionService } from '../../../../../auth/API/session.service';
+import { NavigationsComponent } from '../../../../components/navigations/navigations.component';
 @Component({
   selector: 'app-cd-languages',
   imports: [
@@ -19,9 +22,9 @@ import { SearchLanguagesPipe } from '../../../../../auth/Pipes/search-languages.
     UploadLanguageModalComponent,
     ReactiveFormsModule,
     FormsModule,
-    RouterLink,
     NgxPaginationModule,
-    SearchLanguagesPipe
+    SearchLanguagesPipe,
+    NavigationsComponent
   ],
   templateUrl: './cd-languages.component.html',
   styleUrl: './cd-languages.component.scss'
@@ -34,14 +37,36 @@ export class CdLanguagesComponent implements OnInit {
   public ipp: number = 9;
   public p: any; 
   public selectedLanguage: Language = new Language();
+  public UserInformation: User | null = new User();
+  public URLsList: Array<any> = new Array<any>();
 
 
   constructor(
+    private _SessionService: SessionService,
     private _BankService: BankService
   ){}
 
   ngOnInit(): void {
+    this.UserInformation = this._SessionService.getSessionData();
     this.getLanguages();
+    this.URLsList = [
+      {
+        title: "Domov",
+        url: '/dashboard',
+      },
+      {
+        title: "Šifranti",
+        url:  '/dashboard/coders',
+      },
+      {
+        title: "Splošno",
+        url:  '/dashboard/coders/defaults',
+      },
+      {
+        title: "Jeziki",
+        url: '/dashboard/coders/default/languages'
+      }
+    ];
   }
   
   onNotify = (message: string) => {

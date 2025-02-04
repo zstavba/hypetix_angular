@@ -10,11 +10,13 @@ import { UploadZipCodeModalComponent } from '../../../../components/upload-zip-c
 import { ZipCode } from '../../../../../auth/Classes/zip-code';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SearchZipCodePipe } from '../../../../../auth/Pipes/search-zip-code.pipe';
+import { NavigationsComponent } from '../../../../components/navigations/navigations.component';
+import { User } from '../../../../../auth/Classes/user';
+import { SessionService } from '../../../../../auth/API/session.service';
 
 @Component({
   selector: 'app-cd-zip-code',
   imports: [
-    RouterLink,
     ReactiveFormsModule,
     FormsModule,
     NotificationComponent,
@@ -22,7 +24,8 @@ import { SearchZipCodePipe } from '../../../../../auth/Pipes/search-zip-code.pip
     CreateZipCodeModalComponent,
     UploadZipCodeModalComponent,
     NgxPaginationModule,
-    SearchZipCodePipe
+    SearchZipCodePipe,
+    NavigationsComponent
   ],
   templateUrl: './cd-zip-code.component.html',
   styleUrl: './cd-zip-code.component.scss'
@@ -35,13 +38,36 @@ export class CdZipCodeComponent implements OnInit  {
   public ipp: number = 9;
   public p: any; 
   public searchZipCode: string = '';
+  public URLsList: Array<any> = new Array<any>();
+  public UserInformation: User | null = new User();
+
 
   constructor(
+    private _SessionService: SessionService,
     private _BankService: BankService
   ){}
 
   ngOnInit(): void {
     this.getZipCode();
+    this.URLsList = [
+      {
+        title: "Domov",
+        url: '/dashboard',
+      },
+      {
+        title: "Šifranti",
+        url:  '/dashboard/coders',
+      },
+      {
+        title: "Splošno",
+        url:  '/dashboard/coders/defaults',
+      },
+      {
+        title: "Pošte",
+        url: '/dashboard/coders/default/zipcode'
+      }
+    ];
+    this.UserInformation = this._SessionService.getSessionData();
   }
 
   onNotify = (message: string) => {

@@ -21,14 +21,14 @@ export class SearchExchangeRatesPipe implements PipeTransform {
   private coderContainsFilterText = (item: any, filterText: string): boolean => {
     try {
 
-      if(item.title !== undefined || item.title !== null){
+      if(item.course !== undefined || item.course !== null){
         filterText = filterText.toLowerCase();
         const filterTerms = filterText.split(' ');
 
         for(let term of filterTerms){
 
           let hasFilterTerms = false;
-         if(item.title && item.title.toLowerCase().includes(term)){
+         if(item.course && item.course.toLowerCase().includes(term)){
             return  true;
           }
 

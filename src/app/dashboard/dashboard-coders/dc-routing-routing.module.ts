@@ -30,6 +30,10 @@ import { CcExchangeRatesComponent } from './coders-commercial/cc-exchange-rates/
 import { CcComplainsComponent } from './coders-commercial/cc-complains/cc-complains.component';
 import { CcDebitNotesComponent } from './coders-commercial/cc-debit-notes/cc-debit-notes.component';
 import { CcCreditsComponent } from './coders-commercial/cc-credits/cc-credits.component';
+import { CcInvoicesComponent } from './coders-commercial/cc-invoices/cc-invoices.component';
+import { CcRateSheetComponent } from './coders-commercial/cc-rate-sheet/cc-rate-sheet.component';
+import { CcSupplierOrdersComponent } from './coders-commercial/cc-supplier-orders/cc-supplier-orders.component';
+import { CcCustomerOrdersComponent } from './coders-commercial/cc-customer-orders/cc-customer-orders.component';
 
 const routes: Routes = [
   {
@@ -151,6 +155,22 @@ const routes: Routes = [
   {
     path: "commercials/credits",
     component: CcCreditsComponent
+  },
+  {
+    path: "commercials/invoices",
+    component: CcInvoicesComponent
+  },
+  {
+    path: "commercials/rate/sheet",
+    component: CcRateSheetComponent
+  },
+  {
+    path: "commercials/supplier/orders",
+    component: CcSupplierOrdersComponent
+  },
+  {
+    path: "commercials/customer/orders",
+    component: CcCustomerOrdersComponent
   },
   {
     path: "production",
