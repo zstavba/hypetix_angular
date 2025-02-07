@@ -9,12 +9,15 @@ import { UpdateCustomTariffsModalComponent } from '../../../../components/update
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchCustomTariffsPipe } from '../../../../../auth/Pipes/search-custom-tariffs.pipe';
+import { NavigationsComponent } from '../../../../components/navigations/navigations.component';
+import { User } from '../../../../../auth/Classes/user';
+import { SessionService } from '../../../../../auth/API/session.service';
 
 @Component({
   standalone: true,
   selector: 'app-ca-custom-tariffs',
   imports: [
-    RouterLink,
+    NavigationsComponent,
     NotificationComponent,
     CreateCustomTariffsModalComponent,
     UpdateCustomTariffsModalComponent,
@@ -34,15 +37,39 @@ export class CaCustomTariffsComponent implements OnInit {
   public itemsPerPage: number = 9;
   public p: any; 
   public searchCT: string = '';
+  public URLsList: Array<any> = new Array<any>();
+  public UserInformation: User | null = new User();
 
 
   constructor(
+    private _SessionSerivce: SessionService,
     private _CustomTariffsService: CustomTariffsService
   ){}
 
   ngOnInit(): void {
     this.getTariffs();
+    this.UserInformation = this._SessionSerivce.getSessionData();
+    this.URLsList = [
+      {
+        title: "Domov",
+        url: '/dashboard',
+      },
+      {
+        title: "Šifranti",
+        url:  '/dashboard/coders',
+      },
+      {
+        title: "Artikli",
+        url:  'dashboard/coders/articles',
+      },
+      {
+        title: "Carinske tarife",
+        url: 'dashboard/coders/articles/custom/tariffs'
+      }
+    ];
   }
+
+
 
   getTariffs = () => {
     this._CustomTariffsService.get().subscribe(

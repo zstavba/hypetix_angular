@@ -1,15 +1,15 @@
 import { User } from "./user";
 
-export class Complaints {
+export class Estimates {
 
     public id: number = 0;
     public fk_user_id: User = new User();
-    public title: string = '';
     public ident: string = '';
+    public title: string = '';
     public active: boolean = false; 
+    public description: string = '';
     public created_at: Date = new Date();
 
     constructor(){}
-
 
 }

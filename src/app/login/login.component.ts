@@ -80,6 +80,7 @@ export class LoginComponent  implements OnInit  {
   saveData = () => {
     this._UserService.login(this.LoginForm.value).subscribe(
       (response: any) => {
+       sessionStorage.setItem("user",response);
         $('.login_notification').fadeIn();
         this.systemMessage = "Prijava je bila uspešna !!";
         setTimeout(() => {

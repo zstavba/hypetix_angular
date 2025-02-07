@@ -8,11 +8,14 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NotificationComponent } from '../../../../components/notification/notification.component';
 import { MuSearchPipe } from '../../../../../auth/Pipes/mu-search.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NavigationsComponent } from '../../../../components/navigations/navigations.component';
+import { User } from '../../../../../auth/Classes/user';
+import { SessionService } from '../../../../../auth/API/session.service';
 @Component({
   standalone: true,
   selector: 'app-ca-measurement-units',
   imports: [
-    RouterLink,
+    NavigationsComponent,
     CreateMessurementUnitModalComponent,
     NgxPaginationModule,
     NotificationComponent,
@@ -30,13 +33,36 @@ export class CaMeasurementUnitsComponent implements OnInit {
   public p: any; 
   public systemMessage: string = '';
   public searchUnit: string = '';
+  public URLsList: Array<any> = new Array<any>();
+  public UserInformation: User | null = new User();
+  
 
   constructor(
+    private _SessionService: SessionService,
     private _MeassurementUnistService: MeassurmentUnitsService
   ){}
 
   ngOnInit(): void {
     this.getUnits();
+    this.UserInformation = this._SessionService.getSessionData();
+    this.URLsList = [
+      {
+        title: "Domov",
+        url: '/dashboard',
+      },
+      {
+        title: "Šifranti",
+        url:  '/dashboard/coders',
+      },
+      {
+        title: "Artikli",
+        url:  'dashboard/coders/articles',
+      },
+      {
+        title: "Merske Enote",
+        url: 'dashboard/coders/articles/meassurement/units'
+      }
+    ];
   }
 
   getUnits = () => {

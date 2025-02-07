@@ -10,6 +10,8 @@ import { NotificationComponent } from '../../../../components/notification/notif
 import {NgxPaginationModule} from 'ngx-pagination'; //
 import { UpdateGroupTypeModalComponent } from '../../../../components/update-group-type-modal/update-group-type-modal.component';
 import { UploadGroupsModalComponent } from '../../../../components/upload-groups-modal/upload-groups-modal.component';
+import { NavigationsComponent } from '../../../../components/navigations/navigations.component';
+import { User } from '../../../../../auth/Classes/user';
 
 @Component({
   standalone: true,
@@ -17,7 +19,7 @@ import { UploadGroupsModalComponent } from '../../../../components/upload-groups
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    RouterLink,
+    NavigationsComponent,
     CreateGroupModalComponent,
     SearchGroupPipe,
     NotificationComponent,
@@ -36,6 +38,8 @@ export class CaGroupsComponent implements OnInit {
   public itemsPerPage: number = 9;
   public p: any;
   public GroupTypeInformation: GroupType = new GroupType();
+  public URLsList: Array<any> = new Array<any>();
+  public UserInformation: User | null = new User();
 
 
   constructor(
@@ -44,6 +48,24 @@ export class CaGroupsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getGroupTypes(); 
+    this.URLsList = [
+      {
+        title: "Domov",
+        url: '/dashboard',
+      },
+      {
+        title: "Šifranti",
+        url:  '/dashboard/coders',
+      },
+      {
+        title: "Artikli",
+        url:  'dashboard/coders/articles',
+      },
+      {
+        title: "Skupine",
+        url: 'dashboard/coders/articles/groups'
+      }
+    ];
   }
 
   toggleCreateGroupModal = () => {

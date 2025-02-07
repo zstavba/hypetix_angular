@@ -23,6 +23,10 @@ import { SupplierOrders } from '../../../../auth/Classes/supplier-orders';
 import { SupplierOrdersService } from '../../../../auth/API/supplier-orders.service';
 import { CustomerOrderService } from '../../../../auth/API/customer-order.service';
 import { CustomerOrder } from '../../../../auth/Classes/customer-order';
+import { Estimates } from '../../../../auth/Classes/estimates';
+import { EstimatesService } from '../../../../auth/API/estimates.service';
+import { Complaints } from '../../../../auth/Classes/complaints';
+import { ComplaintsService } from '../../../../auth/API/complaints.service';
 
 @Component({
   selector: 'app-coders-commercial',
@@ -46,7 +50,8 @@ export class CodersCommercialComponent implements OnInit {
   public RateSheetList: Array<RateSheet> = new Array<RateSheet>();
   public SupplierOrdersList: Array<SupplierOrders> = new Array<SupplierOrders>();
   public CustomerOrderList: Array<CustomerOrder> = new Array<CustomerOrder>();
-
+  public EstimatesList: Array<Estimates> = new Array<Estimates>();
+  public ComplaintsList: Array<Complaints> = new Array<Complaints>();
 
   constructor(
     private _ShippingMethodService: ShippingMethodService,
@@ -59,7 +64,9 @@ export class CodersCommercialComponent implements OnInit {
     private _InovicesService: InvoicesService,
     private _RateSheetService: RatesheetService,
     private _SupplierOrderService: SupplierOrdersService,
-    private _CustomerOrderSerivce: CustomerOrderService
+    private _CustomerOrderSerivce: CustomerOrderService,
+    private _EstimatesService: EstimatesService,
+    private _ComplaintsService: ComplaintsService
   ){}
 
   ngOnInit(): void {
@@ -74,6 +81,8 @@ export class CodersCommercialComponent implements OnInit {
     this.getRateSheets();
     this.getSupplierOrders();
     this.getCustomerOrders();
+    this.getEstimates();
+    this.getComplaints();
     this.updateTable();
   }
 
@@ -165,6 +174,21 @@ export class CodersCommercialComponent implements OnInit {
     )
   }
 
+  getEstimates = () => {
+    this._EstimatesService.getItems().subscribe(
+      (response: Estimates[]) => {
+        this.EstimatesList = response
+      }
+    );
+  }
+
+  getComplaints = () => {
+    this._ComplaintsService.get().subscribe(
+      (response: Complaints[]) => {
+        this.ComplaintsList = response;
+      }
+    )
+  }
 
   updateTable = () => {
     this.tableItems = [
@@ -195,7 +219,7 @@ export class CodersCommercialComponent implements OnInit {
       },
       {
         title: "Tipi reklamacij",
-        items: [],
+        items: this.ComplaintsList.length,
         url: "/dashboard/coders/commercials/complaints"
       },
       {
@@ -227,7 +251,13 @@ export class CodersCommercialComponent implements OnInit {
         title: "Naročila kupcev",
         items: this.CustomerOrderList.length,
         url: "/dashboard/coders/commercials/customer/orders"
+      },
+      {
+        title: "Predračuni",
+        items: this.EstimatesList.length,
+        url: "/dashboard/coders/commercials/estimates"
       }
+
 
     ]
   }

@@ -34,6 +34,7 @@ import { CcInvoicesComponent } from './coders-commercial/cc-invoices/cc-invoices
 import { CcRateSheetComponent } from './coders-commercial/cc-rate-sheet/cc-rate-sheet.component';
 import { CcSupplierOrdersComponent } from './coders-commercial/cc-supplier-orders/cc-supplier-orders.component';
 import { CcCustomerOrdersComponent } from './coders-commercial/cc-customer-orders/cc-customer-orders.component';
+import { CcEstimatesComponent } from './coders-commercial/cc-estimates/cc-estimates.component';
 
 const routes: Routes = [
   {
@@ -171,6 +172,10 @@ const routes: Routes = [
   {
     path: "commercials/customer/orders",
     component: CcCustomerOrdersComponent
+  },
+  {
+    path: "commercials/estimates",
+    component: CcEstimatesComponent
   },
   {
     path: "production",

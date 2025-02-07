@@ -130,6 +130,11 @@ import { SearchSupplierOrderPipe } from '../auth/Pipes/search-supplier-order.pip
 import { CustomerOrder } from '../auth/Classes/customer-order';
 import { CustomerOrderService } from '../auth/API/customer-order.service';
 import { SearchCustomerOrderPipe } from '../auth/Pipes/search-customer-order.pipe';
+import { Estimates } from '../auth/Classes/estimates';
+import { EstimatesService } from '../auth/API/estimates.service';
+import { SearchEstimatesPipe } from '../auth/Pipes/search-estimates.pipe';
+import { ComplaintsService } from '../auth/API/complaints.service';
+import { SearchComplaintsPipe } from '../auth/Pipes/search-complaints.pipe';
 
 @Component({
   standalone: true,
@@ -264,7 +269,12 @@ import { SearchCustomerOrderPipe } from '../auth/Pipes/search-customer-order.pip
     SearchSupplierOrderPipe,
     CustomerOrder,
     CustomerOrderService,
-    SearchCustomerOrderPipe
+    SearchCustomerOrderPipe,
+    Estimates,
+    EstimatesService,
+    SearchEstimatesPipe,
+    ComplaintsService,
+    SearchComplaintsPipe
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
