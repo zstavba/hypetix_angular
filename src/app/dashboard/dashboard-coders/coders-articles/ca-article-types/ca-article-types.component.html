@@ -1,6 +1,6 @@
-<create-article-type-modal></create-article-type-modal>
+<create-article-type-modal (systemMessage)="onNotify($event)"></create-article-type-modal>
 <notification [class_type]="'article_type_notification'" [system_message]="systemMessage" ></notification>
-<update-article-type-modal [Info]="ArticleTypeInfo"></update-article-type-modal>
+<update-article-type-modal (systemMessage)="onNotify($event)" [Info]="ArticleTypeInfo"></update-article-type-modal>
 <div class="p-4">
     <navigations [urls]="URLsList" ></navigations>
     <div class="grid sm:grid-cols-2 gap-4">

@@ -1,13 +1,13 @@
 <notification [class_type]="'group_type_notification'" [system_message]="systemMessage"></notification>
-<create-group-modal></create-group-modal>
-<update-group-type-modal [Information]="GroupTypeInformation"></update-group-type-modal>
-<upload-groups-modal></upload-groups-modal>
+<create-group-modal (systemMessage)="onNotify($event)"></create-group-modal>
+<update-group-type-modal (systemMessage)="onNotify($event)"  [Information]="GroupTypeInformation"></update-group-type-modal>
+<upload-groups-modal (systemMessage)="onNotify($event)"></upload-groups-modal>
 <div class="p-4">
     <navigations [urls]="URLsList" ></navigations>
     <div class="grid sm:grid-cols-2 gap-4">
         <h2 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Skupine</h2>
         <div class="text-right space-x-4">
-            @if(UserInformation?.fk_information_id?.user_type == 'admin'){
+            @if(UserInformation?.fk_information_id?.user_type === 'admin'){
                 <button (click)="toggleCreateGroupModal()" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
                     <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 1V4H1V6H4V9H6V6H9V4H6V1H4ZM3 20.0066V11H5V19H13V14C13 13.45 13.45 13 14 13L19 12.999V5H11V3H20.0066C20.5552 3 21 3.45576 21 4.00247V15L15 20.996L4.00221 21C3.4487 21 3 20.5551 3 20.0066ZM18.171 14.999L15 15V18.169L18.171 14.999Z"></path></svg>
                 </button>

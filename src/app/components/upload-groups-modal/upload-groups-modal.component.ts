@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NotificationComponent } from '../notification/notification.component';
 import { GroupTypeService } from '../../../auth/API/group-type.service';
 import $ from 'jquery';
@@ -9,14 +9,13 @@ import { FormControl, FormGroup } from '@angular/forms';
   standalone: true,
   selector: 'upload-groups-modal',
   imports: [
-    NotificationComponent
   ],
   templateUrl: './upload-groups-modal.component.html',
   styleUrl: './upload-groups-modal.component.scss'
 })
 export class UploadGroupsModalComponent implements OnInit {
 
-  public systemMessage: string = '';
+  @Output() systemMessage: EventEmitter<string> = new EventEmitter<string>();
 
   public UGNForm: FormGroup = new FormGroup({
     file: new FormControl('')

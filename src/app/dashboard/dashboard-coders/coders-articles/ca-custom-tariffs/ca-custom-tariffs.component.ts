@@ -88,24 +88,23 @@ export class CaCustomTariffsComponent implements OnInit {
     $('.update_custom_tariff_modal').fadeIn();
   }
 
+  onNotify = (message: string) => {
+    this.getTariffs();
+    $('.custom_tariffs_notification').fadeIn();
+    this.systemMessage = message;
+    setTimeout(() => {
+      $('.custom_tariffs_notification').fadeOut();
+      this.systemMessage = "";    
+    },4000);
+  }
+
   deleteItem = (ID: number) => {
     this._CustomTariffsService.delete(ID).subscribe(
       (response: any) => {
-        this.getTariffs();
-        $('.custom_tariffs_notification').fadeIn();
-        this.systemMessage = response.message;
-        setTimeout(() => {
-          $('.custom_tariffs_notification').fadeOut();
-          this.systemMessage = "";    
-        },4000);
+        this.onNotify(response.message);
       },
       (error: any) => {
-        $('.custom_tariffs_notification').fadeIn();
-        this.systemMessage = error.error.message;
-        setTimeout(() => {
-          $('.custom_tariffs_notification').fadeOut();
-          this.systemMessage = "";    
-        },4000)
+        this.onNotify(error.error.message);
       }
     )
   }

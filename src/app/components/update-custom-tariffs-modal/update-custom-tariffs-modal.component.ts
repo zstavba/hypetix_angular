@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { NotificationComponent } from '../notification/notification.component';
 import { CustomTariffs } from '../../../auth/Classes/custom-tariffs';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -10,7 +10,6 @@ import $ from 'jquery';
   standalone: true,
   selector: 'update-custom-tariffs-modal',
   imports: [
-    NotificationComponent,
     ReactiveFormsModule,
     FormsModule
   ],
@@ -19,7 +18,7 @@ import $ from 'jquery';
 })
 export class UpdateCustomTariffsModalComponent implements OnInit {
 
-  public systemMessage: string = '';
+  @Output() systemMessage: EventEmitter<string> = new EventEmitter<string>();
   @Input() Info: CustomTariffs = new CustomTariffs();
 
   public CTGroup: FormGroup | any;
@@ -76,20 +75,10 @@ export class UpdateCustomTariffsModalComponent implements OnInit {
   saveData = () => {
     this._CTServivce.updateItem(this.Info.id,this.CTGroup).subscribe(
       (response: any) => {
-        $('.update_notification').fadeIn();
-        this.systemMessage = response.message; 
-        setTimeout(() => {
-          $('.update_notification').fadeOut();
-          this.systemMessage = "";     
-        },4000);
+        this.systemMessage.emit(response.message);
       },
       (error: any) => {
-        $('.update_notification').fadeIn();
-        this.systemMessage = error.error.message; 
-        setTimeout(() => {
-          $('.update_notification').fadeOut();
-          this.systemMessage = "";     
-        },4000);
+        this.systemMessage.emit(error.error.message);
       }
     )
   }

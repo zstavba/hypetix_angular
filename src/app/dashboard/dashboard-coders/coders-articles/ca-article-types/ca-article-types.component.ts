@@ -78,6 +78,14 @@ export class CaArticleTypesComponent implements OnInit {
       }
     )
   }
+  onNotify = (message: string) => {
+    $('.article_type_notification').fadeIn();
+    this.systemMessage = message;
+    setTimeout(() => {
+      $('.article_type_notification').fadeOut();
+      this.systemMessage = '';
+    },4000);
+  }
 
   toggleCreateArticleTypeModal = () => {
     $('.create_article_type_modal').fadeIn();
@@ -87,25 +95,14 @@ export class CaArticleTypesComponent implements OnInit {
     this._ArticleTypeService.deleteData(ID).subscribe(
       (response: any) => {
         this.getArticleType();
-        $('.article_type_notification').fadeIn();
-        this.systemMessage = response.message;
-        setTimeout(() => {
-          $('.article_type_notification').fadeOut();
-          this.systemMessage = '';
-        },4000);
+        this.onNotify(response.message);
       },
       (error: any) => {
-        $('.article_type_notification').fadeIn();
-
         if(error.status == 404){
-          this.systemMessage = 'Povezava do URLja ni bila najdena  !'
+          this.onNotify("Povezava do URLjs ni bila najdena !")
         }
-
-        this.systemMessage = error.error.message;
-        setTimeout(() => {
-          $('.article_type_notification').fadeOut();
-          this.systemMessage = '';
-        },4000);
+        this.onNotify(error.error.message);
+        
       }
     )
   }

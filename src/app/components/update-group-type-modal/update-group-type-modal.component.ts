@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { GroupType } from '../../../auth/Classes/group-type';
 import $ from 'jquery';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -14,15 +14,14 @@ import { User } from '../../../auth/Classes/user';
   imports: [
     ReactiveFormsModule,
     FormsModule,
-    NotificationComponent
   ],
   templateUrl: './update-group-type-modal.component.html',
   styleUrl: './update-group-type-modal.component.scss'
 })
 export class UpdateGroupTypeModalComponent implements OnInit {
 
+  @Output() systemMessage: EventEmitter<string> = new EventEmitter<string>();
   @Input() Information: GroupType = new GroupType();
-  public systemMessage: string = '';
   public UserInformation: User | null = new User();
 
   public GTUpdateGroup: FormGroup = new FormGroup({
@@ -53,30 +52,14 @@ export class UpdateGroupTypeModalComponent implements OnInit {
   saveData = () => {
     this._GroupTypeService.updateItem(this.GTUpdateGroup.value,this.Information.id).subscribe(
       (response: any | string) => {
-        $('.update_group_type_notification').fadeIn();
-        this.systemMessage = response.message
-
-        setTimeout(() => {
-          $('.update_group_type_notification').fadeOut();
-          this.systemMessage = ""
-  
-        },4000);
-
+        this.systemMessage.emit(response.message)
       },
       (error: any | string) => {
-        $('.update_group_type_notification').fadeIn();
-
         if(error.status == 404){
-          this.systemMessage = "Povezava do URlja ni bilo mogoče najti !"
+          this.systemMessage.emit("Povezava ni bila najdena !")
         }
-
-        this.systemMessage = error.error.message
-
-        setTimeout(() => {
-          $('.update_group_type_notification').fadeOut();
-          this.systemMessage = ""
-  
-        },4000);
+        this.systemMessage.emit(error.error.message)
+     
       }
     )
   }

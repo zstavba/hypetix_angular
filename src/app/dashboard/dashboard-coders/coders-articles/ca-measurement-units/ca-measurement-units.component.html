@@ -1,4 +1,4 @@
-<create-messurement-unit-modal></create-messurement-unit-modal>
+<create-messurement-unit-modal (systemMessage)="onNotify($event)" ></create-messurement-unit-modal>
 <notification [class_type]="'mu_notification'" [system_message]="systemMessage"></notification>
 <div class="p-4">
     <navigations [urls]="URLsList" ></navigations>

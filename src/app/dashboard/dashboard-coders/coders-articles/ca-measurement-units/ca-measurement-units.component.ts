@@ -77,24 +77,23 @@ export class CaMeasurementUnitsComponent implements OnInit {
     $('.create_mu_modal').fadeIn();
   }
 
+  onNotify = (message: string) => {
+    $('.mu_notification').fadeIn();
+    this.systemMessage = message;
+    setTimeout(() => {
+      $('.mu_notification').fadeOut();
+      this.systemMessage = '';
+    },4000);
+  }
+
   deleteItem = (ID: number) => {
     this._MeassurementUnistService.deleteUnit(ID).subscribe(
       (response: any) => {
         this.getUnits();
-        $('.mu_notification').fadeIn();
-        this.systemMessage = response.message;
-        setTimeout(() => {
-          $('.mu_notification').fadeOut();
-          this.systemMessage = '';
-        },4000);
+        this.onNotify(response.message);
       },
       (error: any) => {
-        $('.mu_notification').fadeIn();
-        this.systemMessage = error.error.message;
-        setTimeout(() => {
-          $('.mu_notification').fadeOut();
-          this.systemMessage = '';
-        },4000);
+        this.onNotify(error.error.message);
       }
     );
   }

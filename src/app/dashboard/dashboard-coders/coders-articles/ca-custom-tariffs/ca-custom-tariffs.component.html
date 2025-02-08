@@ -1,6 +1,6 @@
 <notification [class_type]="'custom_tariffs_notification'" [system_message]="systemMessage" ></notification>
-<create-custom-tariffs-modal></create-custom-tariffs-modal>
-<update-custom-tariffs-modal [Info]="selectedCustomTariff"></update-custom-tariffs-modal>
+<create-custom-tariffs-modal (systemMessage)="onNotify($event)"></create-custom-tariffs-modal>
+<update-custom-tariffs-modal (systemMessage)="onNotify($event)" [Info]="selectedCustomTariff"></update-custom-tariffs-modal>
 <div class="p-4">
     <navigations [urls]="URLsList" ></navigations>
     <div class="grid sm:grid-cols-2 gap-4">

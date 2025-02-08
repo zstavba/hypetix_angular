@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { NotificationComponent } from '../notification/notification.component';
 import { TaxService } from '../../../auth/API/tax.service';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -11,7 +11,6 @@ import { SessionService } from '../../../auth/API/session.service';
   imports: [
     ReactiveFormsModule,
     FormsModule,
-    NotificationComponent
   ],
   templateUrl: './update-tax-modal.component.html',
   styleUrl: './update-tax-modal.component.scss'
@@ -20,7 +19,7 @@ export class UpdateTaxModalComponent implements OnInit {
   
   @Input() Information: Tax = new Tax();
   public TaxGroup: FormGroup | any;
-  public systemMessage: string = '';
+  @Output() systemMessage: EventEmitter<string> = new EventEmitter<string>();
 
 
 
@@ -56,24 +55,10 @@ export class UpdateTaxModalComponent implements OnInit {
   saveData = () => {
     this._TaxService.updateTax(this.Information.id,this.TaxGroup).subscribe(
       (response: any) => {
-        $('.update_tax_notification').fadeIn();
-        this.systemMessage = response.message;
-        setTimeout(() => {
-          $('.update_tax_notification').fadeOut();
-          this.systemMessage = '';
-        },4000);
+        this.systemMessage.emit(response.message);
       },
       (error: any) => {
-        $('.update_tax_notification').fadeIn();
-
-        if(error.status == 404)
-            this.systemMessage = 'Povezava do URLja ni bila najdena !'
-
-        this.systemMessage = error.error.message;
-        setTimeout(() => {
-          $('.update_tax_notification').fadeOut();
-          this.systemMessage = '';
-        },4000);
+        this.systemMessage.emit(error.error.message);
       }
     )
   }

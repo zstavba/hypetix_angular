@@ -12,6 +12,7 @@ import { UpdateGroupTypeModalComponent } from '../../../../components/update-gro
 import { UploadGroupsModalComponent } from '../../../../components/upload-groups-modal/upload-groups-modal.component';
 import { NavigationsComponent } from '../../../../components/navigations/navigations.component';
 import { User } from '../../../../../auth/Classes/user';
+import { SessionService } from '../../../../../auth/API/session.service';
 
 @Component({
   standalone: true,
@@ -43,11 +44,13 @@ export class CaGroupsComponent implements OnInit {
 
 
   constructor(
+    private _SessionService: SessionService,
     private _GroupTypeService: GroupTypeService
   ){}
 
   ngOnInit(): void {
     this.getGroupTypes(); 
+    this.UserInformation = this._SessionService.getSessionData();
     this.URLsList = [
       {
         title: "Domov",
@@ -80,31 +83,27 @@ export class CaGroupsComponent implements OnInit {
     )
   }
 
+  onNotify = (message: string) => {
+    $('.group_type_notification').fadeIn();
+    this.systemMessage = message;
+    setTimeout(() => {
+      $('.group_type_notification').fadeOut();
+      this.systemMessage = '';
+    },4000);
+  }
+
   deleteItem = (ID: number) => {
     this._GroupTypeService.deleteItem(ID).subscribe(
       (response: any | string) => {
         this.getGroupTypes();
-        $('.group_type_notification').fadeIn();
-        this.systemMessage = response.message;
-        setTimeout(() => {
-          $('.group_type_notification').fadeOut();
-          this.systemMessage = '';
-        },4000);
-
-
+        this.onNotify(response.message)
       },
       (error: any | string) => {
-        $('.group_type_notification').fadeIn();
-
         if(error.status == 404){
           this.systemMessage = 'Povezava do URLja ni bila najdena !'; 
         }
+        this.onNotify(error.error.message);
 
-        this.systemMessage = error.error.message;
-        setTimeout(() => {
-          $('.group_type_notification').fadeOut();
-          this.systemMessage = '';
-        },4000);
       }
     )
   }

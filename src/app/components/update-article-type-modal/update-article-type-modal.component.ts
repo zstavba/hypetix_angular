@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output,EventEmitter } from '@angular/core';
 import { NotificationComponent } from '../notification/notification.component';
 import $ from 'jquery';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -14,7 +14,6 @@ import { ArticleType } from '../../../auth/Classes/article-type';
   standalone: true,
   selector: 'update-article-type-modal',
   imports: [
-    NotificationComponent,
     ReactiveFormsModule,
     FormsModule
   ],
@@ -24,8 +23,7 @@ import { ArticleType } from '../../../auth/Classes/article-type';
 export class UpdateArticleTypeModalComponent implements OnInit {
   @Input() Info: ArticleType | null= new ArticleType();
   public UserInformation: User | null = new User();
-  public systemMessage: string = '';
-
+  @Output() systemMessage: EventEmitter<string> = new EventEmitter<string>();
   public GroupTypeList: Array<GroupType> = new Array<GroupType>();
   public selectedGTItem: GroupType = new GroupType();
   public selectedGTItemActive: boolean = false; 
@@ -84,26 +82,14 @@ export class UpdateArticleTypeModalComponent implements OnInit {
   saveData = () => {
     this._ArticleTypeService.updateItem(this.ATGroup.value,this.Info?.id).subscribe(
       (response: any) => {
-        $('.update_modal_notification').fadeIn();
-        this.systemMessage = response.message; 
-        setTimeout(() => {
-          $('.update_modal_notification').fadeOut();
-          this.systemMessage = '';
-        },4000);
+        this.systemMessage.emit(response.message);
       },
       (error: any) => {
-        $('.update_modal_notification').fadeIn();
 
         if(error.status == 404){
-          this.systemMessage = 'Povezava do URLja ni bila najdena !'
+         this.systemMessage.emit("Povezava do URLja ni bila najdena !")
         }
-
-
-        this.systemMessage = error.error.message; 
-        setTimeout(() => {
-          $('.update_modal_notification').fadeOut();
-          this.systemMessage = '';
-        },4000);
+        this.systemMessage.emit(error.error.message);
       }
     )
   }

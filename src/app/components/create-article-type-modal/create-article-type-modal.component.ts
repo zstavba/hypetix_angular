@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter } from '@angular/core';
 import { NotificationComponent } from '../notification/notification.component';
 import { ArticleTypeService } from '../../../auth/API/article-type.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -13,7 +13,6 @@ import { Generator } from '../../../auth/functions/generator';
   standalone: true,
   selector: 'create-article-type-modal',
   imports: [
-    NotificationComponent,
     ReactiveFormsModule,
     FormsModule
   ],
@@ -23,7 +22,7 @@ import { Generator } from '../../../auth/functions/generator';
 export class CreateArticleTypeModalComponent implements OnInit  {
 
   public UserInformation: User | null = new User();
-  public systemMessage: string = '';
+  @Output() systemMessage: EventEmitter<string> = new EventEmitter<string>();
 
   public GroupTypeList: Array<GroupType> = new Array<GroupType>();
   public selectedGTItem: GroupType = new GroupType();
@@ -76,25 +75,16 @@ export class CreateArticleTypeModalComponent implements OnInit  {
   saveData = () => {
     this._ArticleTyxpeService.createData(this.ATGroup.value).subscribe(
       (response: any) => {
-        $('.create_article_type_notification').fadeIn();
-        this.systemMessage = response.message; 
-        setTimeout(() => {
-          $('.create_article_type_notification').fadeOut();
-          this.systemMessage = '';
-        },4000);
+        this.systemMessage.emit(response.message);
       },
       (error: any) => {
-        $('.create_article_type_notification').fadeIn();
 
         if(error.status == 404){
-          this.systemMessage = "Povezava do URLja, ni bila najdena !"
+          this.systemMessage.emit("Povezava do URLjs ni bila najdena !")
         }
+        this.systemMessage.emit(error.error.message);
 
-        this.systemMessage = error.error.message; 
-        setTimeout(() => {
-          $('.create_article_type_notification').fadeOut();
-          this.systemMessage = '';
-        },4000);
+
       }
     )
   }

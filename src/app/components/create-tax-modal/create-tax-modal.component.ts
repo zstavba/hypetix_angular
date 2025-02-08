@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, output } from '@angular/core';
 import { TaxService } from '../../../auth/API/tax.service';
 import { NotificationComponent } from '../notification/notification.component';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -12,7 +12,6 @@ import { Generator } from '../../../auth/functions/generator';
   standalone: true,
   selector: 'create-tax-modal',
   imports: [
-    NotificationComponent,
     ReactiveFormsModule,
     FormsModule
   ],
@@ -33,7 +32,7 @@ export class CreateTaxModalComponent implements OnInit {
   });
 
 
-  public systemMessage: string = '';
+  @Output() systemMessage: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
     private _TaxService: TaxService,
@@ -50,24 +49,10 @@ export class CreateTaxModalComponent implements OnInit {
   saveData = () => {
     	this._TaxService.createTax(this.TaxGroup).subscribe(
         (response: any) => {
-          $('.create_tax_notification').fadeIn();
-          this.systemMessage = response.message;
-          setTimeout(() => {
-            $('.create_tax_notification').fadeOut();
-            this.systemMessage = '';
-          },4000);
+          this.systemMessage.emit(response.message);
         },
         (error: any) => {
-          $('.create_tax_notification').fadeIn();
-
-          if(error.status == 404)
-              this.systemMessage = 'Povezava do URLja ni bila najdena !'
-
-          this.systemMessage = error.error.message;
-          setTimeout(() => {
-            $('.create_tax_notification').fadeOut();
-            this.systemMessage = '';
-          },4000);
+          this.systemMessage.emit(error.error.message);
         }
       )
   }

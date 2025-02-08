@@ -1,5 +1,5 @@
-<create-tax-modal></create-tax-modal>
-<update-tax-modal [Information]="tax"></update-tax-modal>
+<create-tax-modal (systemMessage)="onNotify($event)"></create-tax-modal>
+<update-tax-modal (systemMessage)="onNotify($event)" [Information]="tax"></update-tax-modal>
 <notification [class_type]="'tax_notification'" [system_message]="systemMessage"></notification>
 <div class="p-4">
     <navigations [urls]="URLsList" ></navigations>

@@ -80,29 +80,28 @@ export class CaTaxesComponent implements OnInit {
     $('.create_tax_modal').fadeIn();
   }
 
+  onNotify = (message: string) => {
+    this.getTaxes();
+    $('.tax_notification').fadeIn();
+    this.systemMessage = message;
+    setTimeout(() => {
+      $('.tax_notification').fadeOut();
+      this.systemMessage = '';
+    },4000);
+  }
+
   deleteItem = (ID:number) => {
     this._TaxService.deleteTax(ID).subscribe(
       (response: any) => {
-        this.getTaxes();
-        $('.tax_notification').fadeIn();
-        this.systemMessage = response.message;
-        setTimeout(() => {
-          $('.tax_notification').fadeOut();
-          this.systemMessage = '';
-        },4000);
+        this.onNotify(response.message);
       },
       (error: any) => {
-        $('.tax_notification').fadeIn();
-
         if(error.status === "404"){
-          this.systemMessage = 'Povezava do URLja ni bila najdena  !'
+         this.onNotify("Povezava do URLja ni bila najdena !")
         }
+        this.onNotify(error.error.message);
 
-        this.systemMessage = error.error.message;
-        setTimeout(() => {
-          $('.tax_notification').fadeOut();
-          this.systemMessage = '';
-        },4000);
+
       }
     )
   }

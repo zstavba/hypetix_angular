@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter } from '@angular/core';
 import $ from 'jquery';
 import { NotificationComponent } from '../notification/notification.component';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -13,12 +13,13 @@ import { User } from '../../../auth/Classes/user';
   imports: [
     ReactiveFormsModule,
     FormsModule,
-    NotificationComponent
   ],
   templateUrl: './create-group-modal.component.html',
   styleUrl: './create-group-modal.component.scss'
 })
 export class CreateGroupModalComponent implements OnInit {
+
+  @Output() systemMessage: EventEmitter<string> = new EventEmitter<string>();
 
   public GTGroup: FormGroup = new FormGroup({
     fk_user_id: new FormControl(''),
@@ -26,8 +27,6 @@ export class CreateGroupModalComponent implements OnInit {
     title: new FormControl('',Validators.required),
     type: new FormControl('',Validators.required),
   })
-
-  public systemMessage: string = '';
   public UserInformation: User | null = new User();
 
 
@@ -47,27 +46,14 @@ export class CreateGroupModalComponent implements OnInit {
   saveData = () => {
     this._GroupService.createGroupType(this.GTGroup.value).subscribe(
       (response: any) => {
-        $('.create_group_notification').fadeIn();
-        this.systemMessage = response.message;
-        setTimeout(() => {
-          $('.create_group_notification').fadeOut();
-          this.systemMessage = '';
-        },4000);
+        this.systemMessage.emit(response.message)
       },
-      (error: any) => {
-        $('.create_group_notification').fadeIn();
-        
+      (error: any) => {       
         if(error.status === 404){
-          this.systemMessage = 'Povezava do URLja ni bila najdena !'
+          	this.systemMessage.emit("Povezava ni bila najdena !")
         }
+        this.systemMessage.emit(error.error.message);
         
-        this.systemMessage = error.error.message;
-
-
-        setTimeout(() => {
-          $('.create_group_notification').fadeOut();
-          this.systemMessage = '';
-        },4000);
       }
     )
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NotificationComponent } from '../notification/notification.component';
 import $ from 'jquery';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -12,7 +12,6 @@ import { CustomTariffsService } from '../../../auth/API/custom-tariffs.service';
 @Component({
   selector: 'create-custom-tariffs-modal',
   imports: [
-    NotificationComponent,
     ReactiveFormsModule,
     FormsModule
   ],
@@ -21,7 +20,7 @@ import { CustomTariffsService } from '../../../auth/API/custom-tariffs.service';
 })
 export class CreateCustomTariffsModalComponent implements OnInit  {
   //create_custom_tariff_notification
-  public systemMessage: string = '';
+  @Output() systemMessage: EventEmitter<string> = new EventEmitter<string>();
   public generator: Generator = new Generator();
   
 
@@ -84,20 +83,10 @@ export class CreateCustomTariffsModalComponent implements OnInit  {
   saveData = () => {
     this._CustomTariffService.create(this.CTGroup.value).subscribe(
       (response: any) => {
-        $('.create_custom_tariff_notification').fadeIn();
-        this.systemMessage = response.message; 
-        setTimeout(() => {
-          $('.create_custom_tariff_notification').fadeOut();
-          this.systemMessage = ""   
-        },4000);
+        this.systemMessage.emit(response.message);
       },
       (error: any) => {
-        $('.create_custom_tariff_notification').fadeIn();
-        this.systemMessage = error.error.message; 
-        setTimeout(() => {
-          $('.create_custom_tariff_notification').fadeOut();
-          this.systemMessage = ""   
-        },4000);
+        this.systemMessage.emit(error.error.message);
       }
     )
   }
