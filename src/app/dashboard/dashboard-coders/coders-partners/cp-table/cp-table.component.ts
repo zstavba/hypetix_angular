@@ -43,7 +43,6 @@ export class CpTableComponent implements OnInit {
     this.user_type =  this.route.snapshot.paramMap.get('user_type');
     this.getUsersByType();
     this.tableKeys = User.getKeys();
-    console.log(this.tableKeys)
   }
 
   getUsersByType = () => {

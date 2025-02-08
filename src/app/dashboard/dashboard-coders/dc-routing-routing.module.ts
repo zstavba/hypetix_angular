@@ -35,6 +35,7 @@ import { CcRateSheetComponent } from './coders-commercial/cc-rate-sheet/cc-rate-
 import { CcSupplierOrdersComponent } from './coders-commercial/cc-supplier-orders/cc-supplier-orders.component';
 import { CcCustomerOrdersComponent } from './coders-commercial/cc-customer-orders/cc-customer-orders.component';
 import { CcEstimatesComponent } from './coders-commercial/cc-estimates/cc-estimates.component';
+import { CaPerformanceComponent } from './coders-articles/ca-performance/ca-performance.component';
 
 const routes: Routes = [
   {
@@ -67,8 +68,12 @@ const routes: Routes = [
     component: CaArticleTypesComponent,
   },  
   {
-    path: "articlea//coders",
+    path: "articles/coders",
     component: CaCodersComponent,
+  },
+  {
+    path: "articles/performance",
+    component: CaPerformanceComponent,
   },
   {
     path: "articles/custom/tariffs",

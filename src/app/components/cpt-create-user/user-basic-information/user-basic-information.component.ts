@@ -4,6 +4,8 @@ import { BankService } from '../../../../auth/API/bank.service';
 import { Areas } from '../../../../auth/Classes/areas';
 import { Language } from '../../../../auth/Classes/language';
 import $ from 'jquery';
+import { CurrencieService } from '../../../../auth/API/currencie.service';
+import { Currencie } from '../../../../auth/Classes/currencie';
 
 enum UserType {
   admin =  "admin",
@@ -40,6 +42,11 @@ export class UserBasicInformationComponent implements OnInit {
   public AreasList: Array<Areas> = new Array<Areas>();
   public selectedAreaItem: Areas = new Areas();
   public selectedAreaItemActive: boolean = false; 
+
+
+  public CurrencieList: Array<Currencie> = new Array<Currencie>();
+  public selectedCurrencieItem: Currencie = new Currencie();
+  public selectedCurrencieItemActive: boolean = false; 
   
 
   public UserInformation: FormGroup = new FormGroup({
@@ -51,16 +58,18 @@ export class UserBasicInformationComponent implements OnInit {
     user_type: new FormControl('',Validators.required),
     fk_currencie_id: new FormControl(''),
     tax_number: new FormControl('',Validators.required),
-    id_number: new FormControl(''),
+    bank_number: new FormControl('',Validators.required),
   });
 
   constructor(
-    private _BankService: BankService
+    private _BankService: BankService,
+    private _CurrencieService: CurrencieService
   ){}
 
   ngOnInit(): void {
     this.getArea();
     this.getLanguages();
+    this.getCurrencie();
   }
 
   setItems = () => {
@@ -97,6 +106,22 @@ export class UserBasicInformationComponent implements OnInit {
     this.selectedLanguageItemActive = true; 
     this.UserInformation.patchValue({
       fk_language_id: item
+    });
+  }
+
+  getCurrencie = () => {
+    this._CurrencieService.get().subscribe(
+      (response: Currencie[]) => {
+        this.CurrencieList = response; 
+      }
+     )
+  }
+
+  setCurrencie = (item: Currencie) => {
+    this.selectedCurrencieItem = item; 
+    this.selectedCurrencieItemActive = true;
+    this.UserInformation.patchValue({
+      fk_currencie_id: item
     });
   }
 

@@ -13,6 +13,8 @@ import { ArticleTypeService } from '../../../../auth/API/article-type.service';
 import { MeassurmentUnitsService } from '../../../../auth/API/meassurment-units.service';
 import { TaxService } from '../../../../auth/API/tax.service';
 import { CustomTariffsService } from '../../../../auth/API/custom-tariffs.service';
+import { PerformanceWork } from '../../../../auth/Classes/performance-work';
+import { PerformanceService } from '../../../../auth/API/performance.service';
 
 @Component({
   selector: 'app-coders-articles',
@@ -32,7 +34,7 @@ export class CodersArticlesComponent implements OnInit{
   public MeassurementUnitsList: Array<MeassurmentUnits> = new Array<MeassurmentUnits>();
   public TaxList: Array<Tax> = new Array<Tax>();
   public CustomTariffsList: Array<CustomTariffs> = new Array<CustomTariffs>();
-
+  public PerformanceList: Array<PerformanceWork> = new Array<PerformanceWork>();
 
 
 
@@ -41,7 +43,8 @@ export class CodersArticlesComponent implements OnInit{
     private _ArticleTypeService: ArticleTypeService,
     private _MuService: MeassurmentUnitsService,
     private _TaxService: TaxService,
-    private _CustomTariffsService: CustomTariffsService
+    private _CustomTariffsService: CustomTariffsService,
+    private _PerformanceService: PerformanceService
   ){}
 
   ngOnInit(): void {
@@ -70,6 +73,7 @@ export class CodersArticlesComponent implements OnInit{
     this.getMeassurmentUnits(),
     this.getTaxes(),
     this.getCT(),
+    this.getPerformanceWork();
   
     // Update the table items list after data is fetched.
     this.updateTableItemsList();
@@ -111,6 +115,14 @@ export class CodersArticlesComponent implements OnInit{
     this._CustomTariffsService.get().subscribe(
       (response: CustomTariffs[]) => {
         this.CustomTariffsList = response;
+      }
+    )
+  }
+
+  getPerformanceWork = () => {
+    this._PerformanceService.get().subscribe(
+      (response: PerformanceWork[]) => {
+        this.PerformanceList = response;
       }
     )
   }
@@ -158,6 +170,12 @@ export class CodersArticlesComponent implements OnInit{
         items: this.CustomTariffsList.length,
         category: "Tarife",
         url: '/dashboard/coders/articles/custom/tariffs',
+      },
+      {
+        title: "Izvedbe",
+        items: this.PerformanceList.length,
+        category: "Izvedbe",
+        url: '/dashboard/coders/articles/performance',
       },
     ];
   }

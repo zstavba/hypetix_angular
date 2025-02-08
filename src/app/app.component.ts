@@ -135,6 +135,7 @@ import { EstimatesService } from '../auth/API/estimates.service';
 import { SearchEstimatesPipe } from '../auth/Pipes/search-estimates.pipe';
 import { ComplaintsService } from '../auth/API/complaints.service';
 import { SearchComplaintsPipe } from '../auth/Pipes/search-complaints.pipe';
+import { SearchPerformancePipe } from '../auth/Pipes/search-performance.pipe';
 
 @Component({
   standalone: true,
@@ -274,7 +275,8 @@ import { SearchComplaintsPipe } from '../auth/Pipes/search-complaints.pipe';
     EstimatesService,
     SearchEstimatesPipe,
     ComplaintsService,
-    SearchComplaintsPipe
+    SearchComplaintsPipe,
+    SearchPerformancePipe
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
