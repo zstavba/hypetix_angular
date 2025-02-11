@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { WorkCenterClassification } from '../../../../auth/Classes/work-center-classification';
 import { WorkCenterClassificationService } from '../../../../auth/API/work-center-classification.service';
@@ -12,6 +12,8 @@ import { DeliveryConditionsService } from '../../../../auth/API/delivery-conditi
 import { ZipCode } from '../../../../auth/Classes/zip-code';
 import { SectorService } from '../../../../auth/API/sector.service';
 import { Sector } from '../../../../auth/Classes/sector';
+import { Areas } from '../../../../auth/Classes/areas';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-coders-defaults',
@@ -31,25 +33,46 @@ export class CodersDefaultsComponent implements OnInit {
   public PaymentTermsList: Array<PaymentTerms> = new Array<PaymentTerms>();
   public ZipCodeList: Array<ZipCode> = new Array<ZipCode>();
   public SectorList: Array<Sector> = new Array<Sector>();
+  public AreaList: Array<Areas> = new Array<Areas>();
 
   constructor(
     private _WorkCenterService: WorkCenterClassificationService,
     private _BankService: BankService,
     private _PTService: PaymentTermsService,
     private _DCService: DeliveryConditionsService,
-    private _SectorService: SectorService
+    private _SectorService: SectorService,
+    private cdr: ChangeDetectorRef
+    
   ){}
 
   ngOnInit(): void {
-    this.getWorkCenters();
-    this.getCountry();
-    this.getLanguages();
-    this.getTerms();
-    this.getDeliveryConditions();
-    this.getZipCode();
-    this.getSectors();
-    this.updateTableData();
+    this.loadData();
   }
+
+  loadData = () => {
+    forkJoin({
+      workCenters: this._WorkCenterService.get(),
+      countries: this._BankService.getCountry(),
+      languages: this._BankService.getLanguage(),
+      paymentTerms: this._PTService.getItems(),
+      deliveryConditions: this._DCService.getItems(),
+      zipCodes: this._BankService.getZipCode(),
+      sectors: this._SectorService.getItems(),
+      areas: this._BankService.getAreas()
+    }).subscribe(response => {
+      this.WorkCentersList = response.workCenters;
+      this.CountryList = response.countries;
+      this.LanguagesList = response.languages;
+      this.PaymentTermsList = response.paymentTerms;
+      this.DCList = response.deliveryConditions;
+      this.ZipCodeList = response.zipCodes;
+      this.SectorList = response.sectors;
+      this.AreaList = response.areas;
+      
+      this.updateTableData();
+    });
+  };
+
 
   getWorkCenters = () => {
     this._WorkCenterService.get().subscribe(
@@ -107,6 +130,14 @@ export class CodersDefaultsComponent implements OnInit {
     )
   }
 
+  getAreas = () => {
+    this._BankService.getAreas().subscribe(
+      (response: Areas[]) => {
+        this.AreaList = response; 
+      }
+    )
+  }
+
   
   updateTableData = () => {
     this.TableItemsList = [
@@ -157,6 +188,12 @@ export class CodersDefaultsComponent implements OnInit {
         items: this.SectorList.length,
         category: "Sektor",
         url: '/dashboard/coders/defaults/sector',
+      },
+      {
+        title: "Območja",
+        items: this.AreaList.length,
+        category: "Območja",
+        url: '/dashboard/coders/defaults/areas',
       },
     ]
   }

@@ -1,0 +1,104 @@
+<div class="space-y-4" [formGroup]="ShoppingGroup">
+    <div class="text-xl dark:text-white text-slate-700">
+        Zaloga
+    </div>
+    <div class="grid grid-cols-3 gap-4">
+       <div class="space-y-4">
+            <div>
+                <label for="sg_minimum" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Minimalna</label>
+                <input type="text" id="sg_minimum" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  formControlName="minimum_stock" />
+                @if(ShoppingGroup.get('minimum_stock')?.errors?.["required"]){
+                    <p class="text-red-500">
+                        Vnos minimalne zaloge je obvezen !
+                    </p>
+                }
+            </div>   
+            <div>
+                <label for="block_stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Blok. Zaloga</label>
+                <input type="text" id="block_stock" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  formControlName="block_stock" />
+                @if(ShoppingGroup.get('block_stock')?.errors?.["required"]){
+                    <p class="text-red-500">
+                        Vnos blok zaloge je obvezen !
+                    </p>
+                }
+            </div> 
+            <div>
+                <label for="singular_stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Signalna Zaloga</label>
+                <input type="text" id="singular_stock" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  formControlName="singular_stock" />
+                @if(ShoppingGroup.get('singular_stock')?.errors?.["required"]){
+                    <p class="text-red-500">
+                        Vnos signalne zaloge je obvezen !
+                    </p>
+                }
+            </div>    
+            <div>
+                <label for="optimal_stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Optimalna Zaloga</label>
+                <input type="text" id="optimal_stock" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  formControlName="optimal_stock" />
+                @if(ShoppingGroup.get('optimal_stock')?.errors?.["required"]){
+                    <p class="text-red-500">
+                        Vnos optimalna zaloge je obvezen !
+                    </p>
+                }
+            </div>             
+       </div> 
+       <div class="space-y-4">
+        <div>
+            <label for="expences_per_unit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stroški nabave na enoto</label>
+            <input type="text" id="expences_per_unit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  formControlName="expences_per_unit" />
+            @if(ShoppingGroup.get('expences_per_unit')?.errors?.["required"]){
+                <p class="text-red-500">
+                    Vnos stroški nabave na enoto je obvezen !
+                </p>
+            }
+        </div> 
+        <div>
+            <label for="expences_per_year" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stroški skladiščenja</label>
+            <input type="text" id="expences_per_year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  formControlName="expences_per_year" />
+            @if(ShoppingGroup.get('expences_per_year')?.errors?.["required"]){
+                <p class="text-red-500">
+                    Vnos stroški skladiščenja je obvezen !
+                </p>
+            }
+        </div> 
+        <div>
+            <label for="average_stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Povprečna vrednost stanja</label>
+            <input type="text" id="average_stock" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  formControlName="average_stock" />
+            @if(ShoppingGroup.get('average_stock')?.errors?.["required"]){
+                <p class="text-red-500">
+                    Vnos povprečna vrednost stanja je obvezen !
+                </p>
+            }
+        </div> 
+       </div>
+       <div class="space-y-4">
+            <div>
+                <label for="optimum_stock_payment" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Optimalna količina naročanja</label>
+                <input type="text" id="optimum_stock_payment" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  formControlName="optimum_stock_payment" />
+                @if(ShoppingGroup.get('optimum_stock_payment')?.errors?.["required"]){
+                    <p class="text-red-500">
+                        Vnos optimalne količine naročanja a je obvezen !
+                    </p>
+                }
+            </div> 
+            <div>
+                <label for="forseen_stock" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Predvidena količina nabave na leto</label>
+                <input type="text" id="forseen_stock" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  formControlName="forseen_stock" />
+                @if(ShoppingGroup.get('forseen_stock')?.errors?.["required"]){
+                    <p class="text-red-500">
+                        Vnos predvidene kolčičine a je obvezen !
+                    </p>
+                }
+            </div> 
+            <div>
+                <label for="block_price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Blok. Cena</label>
+                <input type="text" id="block_price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  formControlName="block_price" />
+                @if(ShoppingGroup.get('block_price')?.errors?.["required"]){
+                    <p class="text-red-500">
+                        Vnos blok. cene  je obvezen !
+                    </p>
+                }
+            </div> 
+       </div>
+    </div>
+    <button (click)="setData()" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Poknjiži podatke</button>
+</div>

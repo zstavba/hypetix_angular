@@ -4,12 +4,10 @@ export class Areas {
 
     public id: number = 0;
     public fk_user_id: User = new User();
-    public area: string = '';
-    public description: string = '';
-    public superiors: string = '';
-    public municipality: string = '';
+    public ident: string = '';
+    public title: string = '';
     public active: boolean = false; 
-    public created_At: Date = new Date();
+    public created_at: Date = new Date();
 
     constructor(){}
 

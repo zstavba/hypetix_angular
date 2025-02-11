@@ -109,12 +109,27 @@ export class BankService {
   }
 
 
-
+  // Areas START
 
   getAreas = (): Observable<Areas[]> => {
     return this.http.get<Areas[]>(`${this.http_link}/defaults/areas/get`);
   }
 
+
+  createArea = (data: FormGroup): Observable<any> => {
+    return this.http.post<any>(`${this.http_link}/defaults/areas/create`,data.value)
+  }
+
+  deleteAreaItem = (ID: number): Observable<any> => {
+    return this.http.delete(`${this.http_link}/defaults/areas/delete/${ID}`);
+  }
+
+  updateArea = (ID: number, data: FormGroup): Observable<any> => {
+    return this.http.post<any>(`${this.http_link}/defaults/areas/update/${ID}`,data.value)
+  }
+
+
+  // Areas END 
 
 
 

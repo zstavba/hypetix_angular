@@ -36,6 +36,8 @@ import { CcSupplierOrdersComponent } from './coders-commercial/cc-supplier-order
 import { CcCustomerOrdersComponent } from './coders-commercial/cc-customer-orders/cc-customer-orders.component';
 import { CcEstimatesComponent } from './coders-commercial/cc-estimates/cc-estimates.component';
 import { CaPerformanceComponent } from './coders-articles/ca-performance/ca-performance.component';
+import { CaArticleViewComponent } from './coders-articles/ca-article-view/ca-article-view.component';
+import { CdAreasComponent } from './coders-defaults/cd-areas/cd-areas.component';
 
 const routes: Routes = [
   {
@@ -50,6 +52,10 @@ const routes: Routes = [
   {
     path: "articles",
     component: CodersArticlesComponent,
+  },
+  {
+    path: "articles/view/:id",
+    component: CaArticleViewComponent,
   },
   {
     path: "articles/list/:type",
@@ -124,6 +130,10 @@ const routes: Routes = [
   {
     path: "defaults/sector",
     component: CdSectorComponent
+  },
+  {
+    path: "defaults/areas",
+    component: CdAreasComponent
   },
   //DEFAULTS END
   {

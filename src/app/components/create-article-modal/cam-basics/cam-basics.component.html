@@ -1,0 +1,103 @@
+<div class="space-y-4" [formGroup]="BasicGroup">
+    <div class="grid grid-cols-3 gap-4">
+        <div>
+            <label for="article_ident" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ident</label>
+            <input type="text" id="article_ident" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="ident" />
+            @if(BasicGroup.get('ident')?.errors?.["required"]){
+                <p class="text-red-500">
+                    Vnos identa je obvezen!
+                </p>
+            }
+        </div>
+        <div>
+            <label for="article_title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Naziv</label>
+            <input type="text" id="article_title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="title" />
+            @if(BasicGroup.get('title')?.errors?.["required"]){
+                <p class="text-red-500">
+                    Vnos naziva je obvezen!
+                </p>
+            }
+        </div>
+        <combo-box-menu [combo_title]="'Merska Enota'" [combo_id]="'mu_menu'" [items]="MuList" (selectedItem)="getSelecteCombo($event, 'fk_mu_id')"></combo-box-menu>
+        <combo-box-menu [combo_title]="'Dobavitelj'" [combo_id]="'supplier_menu'" [items]="SuppliersList" (selectedItem)="getSelecteCombo($event, 'fk_supplier_id')"></combo-box-menu>
+        <combo-box-menu [combo_title]="'Skladišča'" [combo_id]="'warehouse_menu'" [items]="WarehouseList" (selectedItem)="getSelecteCombo($event, 'fk_warehouse_id')"></combo-box-menu>
+        <combo-box-menu [combo_title]="'Klasifikacije'" [combo_id]="'classification_menu'" [items]="ClassificatioinsList" (selectedItem)="getSelecteCombo($event, 'fk_classification_id')"></combo-box-menu>
+        <combo-box-menu [combo_title]="'Tip artikla'" [combo_id]="'article_type_menu'" [items]="ArticleTypeList" (selectedItem)="getSelecteCombo($event, 'fk_article_type_id')"></combo-box-menu>
+        <combo-box-menu [combo_title]="'Poreklo'" [combo_id]="'country_menu'" [items]="CountryList" (selectedItem)="getSelecteCombo($event, 'fk_country_id')"></combo-box-menu>
+        <combo-box-menu [combo_title]="'DDV'" [combo_id]="'tax_menu'" [items]="TaxList" (selectedItem)="getSelecteCombo($event, 'fk_tax_id')"></combo-box-menu>
+        <div>
+            <label for="article_standart" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Standart</label>
+            <input type="text" id="articarticle_standarte_title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="standart" />
+            @if(BasicGroup.get('standart')?.errors?.["required"]){
+                <p class="text-red-500">
+                    Vnos standarda je obvezen!
+                </p>
+            }
+        </div>
+        <div>
+            <label for="article_affiliation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pripradnost</label>
+            <input type="text" id="articarticle_affiliation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="affiliation" />
+            @if(BasicGroup.get('affiliation')?.errors?.["required"]){
+                <p class="text-red-500">
+                    Vnos pripadnosti je obvezen!
+                </p>
+            }
+        </div>
+        <div>
+            <label for="article_expiration_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rok uporabe</label>
+            <input type="date" id="article_expiration_date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="expiration_date" />
+            @if(BasicGroup.get('expiration_date')?.errors?.["required"]){
+                <p class="text-red-500">
+                    Vnos rok uporabe je obvezen!
+                </p>
+            }
+        </div>
+        <div>
+            <label for="article_margin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marža</label>
+            <input type="text" id="article_margin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="margin" />
+            @if(BasicGroup.get('margin')?.errors?.["required"]){
+                <p class="text-red-500">
+                    Vnos marže je obvezen!
+                </p>
+            }
+        </div>
+        <div>
+            <label for="article_width" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Širina</label>
+            <input type="text" id="article_width" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="width" />
+            @if(BasicGroup.get('width')?.errors?.["required"]){
+                <p class="text-red-500">
+                    Vnos širine je obvezen!
+                </p>
+            }
+        </div>
+        <div>
+            <label for="article_length" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dolžina</label>
+            <input type="text" id="article_length" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="length" />
+            @if(BasicGroup.get('length')?.errors?.["required"]){
+                <p class="text-red-500">
+                    Vnos dolžine je obvezen!
+                </p>
+            }
+        </div>
+        <div>
+            <label for="article_height" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Višina</label>
+            <input type="text" id="article_height" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="height" />
+            @if(BasicGroup.get('height')?.errors?.["required"]){
+                <p class="text-red-500">
+                    Vnos višine je obvezen!
+                </p>
+            }
+        </div>
+        <div>
+            <label for="article_volume" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Volumen</label>
+            <input type="text" id="article_volume" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" formControlName="volume" />
+            @if(BasicGroup.get('volume')?.errors?.["required"]){
+                <p class="text-red-500">
+                    Vnos volumna je obvezen!
+                </p>
+            }
+        </div>
+    </div>
+    <button (click)="setData()" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Poknjiži podatke</button>
+    
+</div>

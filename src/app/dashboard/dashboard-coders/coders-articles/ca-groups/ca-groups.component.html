@@ -106,6 +106,9 @@
           </div>
     }
 </div>
-<div class="w-full p-4 text-right">
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+<div class="grid sm:grid-cols-2 gap-4 p-4">
+    <div></div>
+    <div class="bg-gray-200/50 rounded text-right py-1.5">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
 </div>

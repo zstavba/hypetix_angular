@@ -1,7 +1,8 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, SimpleChanges } from '@angular/core';
 import { UserService } from '../../../../auth/API/user.service';
 import { User } from '../../../../auth/Classes/user';
 import { RouterLink } from '@angular/router';
+import { forkJoin } from 'rxjs';
 
 enum UserType {
   admin =  "admin",
@@ -37,37 +38,34 @@ export class CodersPartnersComponent implements OnInit {
   public itemsList: Array<any> = new Array<any>();
 
   constructor(
-    private _UserService: UserService
+    private _UserService: UserService,
+    private cdr: ChangeDetectorRef
   ){}
 
   ngOnInit(): void {
-    this.getUserByType(UserType.partner)
-    this.getUserByType(UserType.buyers)
-    this.getUserByType(UserType.suppliers)
-    this.getUserByType(UserType.passengers)
-    this.getUserByType(UserType.worker)
-    this.getUserByType(UserType.spenders)
-    this.setTableItems();
+    this.loadUserData();
+  }
+ 
+  loadUserData = () => {
+    forkJoin({
+      partners: this._UserService.getByType(UserType.partner),
+      buyers: this._UserService.getByType(UserType.buyers),
+      suppliers: this._UserService.getByType(UserType.suppliers),
+      passengers: this._UserService.getByType(UserType.passengers),
+      workers: this._UserService.getByType(UserType.worker),
+      spenders: this._UserService.getByType(UserType.spenders),
+    }).subscribe(response => {
+      this.PartnersList = response.partners;
+      this.BuyersList = response.buyers;
+      this.RecipentsList = response.suppliers;
+      this.PassengersList = response.passengers;
+      this.WorkersList = response.workers;
+      this.SpendersList = response.spenders;
 
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    if(changes["PartnersList"] ||
-       changes["BuyersList"] ||
-       changes["RecipentsList"] ||
-       changes["PassengersList"] ||
-       changes["WorkersList"] ||
-       changes["SpendersList"] ){
-      this.getUserByType(UserType.partner)
-      this.getUserByType(UserType.buyers)
-      this.getUserByType(UserType.suppliers)
-      this.getUserByType(UserType.passengers)
-      this.getUserByType(UserType.worker)
-      this.getUserByType(UserType.spenders)
       this.setTableItems();
-  
-    }
-    
-  }
+    });
+  };
+
 
   getUserByType = (type: string) => {
 

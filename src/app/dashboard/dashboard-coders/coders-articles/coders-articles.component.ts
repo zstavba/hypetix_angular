@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, SimpleChanges } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AlternativeChipers } from '../../../../auth/Classes/alternative-chipers';
 import { Classification } from '../../../../auth/Classes/classification';
@@ -15,6 +15,9 @@ import { TaxService } from '../../../../auth/API/tax.service';
 import { CustomTariffsService } from '../../../../auth/API/custom-tariffs.service';
 import { PerformanceWork } from '../../../../auth/Classes/performance-work';
 import { PerformanceService } from '../../../../auth/API/performance.service';
+import { ClassificationService } from '../../../../auth/API/classification.service';
+import { AlternativeChipersService } from '../../../../auth/API/alternative-chipers.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-coders-articles',
@@ -37,14 +40,16 @@ export class CodersArticlesComponent implements OnInit{
   public PerformanceList: Array<PerformanceWork> = new Array<PerformanceWork>();
 
 
-
   constructor(
     private _GroupTypeService: GroupTypeService,
     private _ArticleTypeService: ArticleTypeService,
     private _MuService: MeassurmentUnitsService,
     private _TaxService: TaxService,
     private _CustomTariffsService: CustomTariffsService,
-    private _PerformanceService: PerformanceService
+    private _PerformanceService: PerformanceService,
+    private _ClassificationsService: ClassificationService,
+    private _AlternativeChippersService: AlternativeChipersService,
+    private cdr: ChangeDetectorRef
   ){}
 
   ngOnInit(): void {
@@ -67,16 +72,30 @@ export class CodersArticlesComponent implements OnInit{
 
 
   loadData =  async () => {
-    // Fetch all data in parallel (assuming these are promises).
-    this.getGroupTypes(),
-    this.getArticleTypes(),
-    this.getMeassurmentUnits(),
-    this.getTaxes(),
-    this.getCT(),
-    this.getPerformanceWork();
+    forkJoin({
+      chippers: this._AlternativeChippersService.getItems(),
+      classifications: this._ClassificationsService.get(),
+      groups: this._GroupTypeService.get(),
+      articleTypes: this._ArticleTypeService.get(),
+      meassurementUnits: this._MuService.get(),
+      taxes: this._TaxService.get(),
+      customTariffs: this._CustomTariffsService.get(),
+      performanceWork: this._PerformanceService.get()
+    }).subscribe((results) => {
+      // Assign results to corresponding lists
+      this.ChippersList = results.chippers;
+      this.ClassificationsList = results.classifications;
+      this.GroupList = results.groups;
+      this.ArticleTypeList = results.articleTypes;
+      this.MeassurementUnitsList = results.meassurementUnits;
+      this.TaxList = results.taxes;
+      this.CustomTariffsList = results.customTariffs;
+      this.PerformanceList = results.performanceWork;
   
-    // Update the table items list after data is fetched.
-    this.updateTableItemsList();
+      // Now that all data is loaded, update the table
+      this.updateTableItemsList();
+      this.cdr.detectChanges(); // Ensure UI refresh
+    });
   }
 
   getGroupTypes = () => {
@@ -126,6 +145,22 @@ export class CodersArticlesComponent implements OnInit{
       }
     )
   }
+  getClassifications = () => {
+    this._ClassificationsService.get().subscribe(
+      (response: Classification[]) => {
+        this.ClassificationsList = response;
+      }
+    )
+  }
+
+  getChippers = () => {
+    this._AlternativeChippersService.getItems().subscribe(
+      (response: AlternativeChipers[]) => {
+        this.ChippersList = response;
+      }
+    )
+  }
+
   
   updateTableItemsList = () => {
     this.tableItemsList = [

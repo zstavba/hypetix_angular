@@ -4,7 +4,7 @@ export class Classification {
 
     public id: number = 0;
     public fk_user_id: User = new User();
-    public classification_id: string = '';
+    public ident: string = '';
     public title: string = '';
     public status: string = '';
     public network: string = '';

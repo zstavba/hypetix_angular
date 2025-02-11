@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ShippingMethod } from '../../../../auth/Classes/shipping-method';
 import { RouterLink } from '@angular/router';
 import { ShippingMethodService } from '../../../../auth/API/shipping-method.service';
@@ -27,6 +27,7 @@ import { Estimates } from '../../../../auth/Classes/estimates';
 import { EstimatesService } from '../../../../auth/API/estimates.service';
 import { Complaints } from '../../../../auth/Classes/complaints';
 import { ComplaintsService } from '../../../../auth/API/complaints.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-coders-commercial',
@@ -66,24 +67,42 @@ export class CodersCommercialComponent implements OnInit {
     private _SupplierOrderService: SupplierOrdersService,
     private _CustomerOrderSerivce: CustomerOrderService,
     private _EstimatesService: EstimatesService,
-    private _ComplaintsService: ComplaintsService
+    private _ComplaintsService: ComplaintsService,
+    private cdr: ChangeDetectorRef
   ){}
 
   ngOnInit(): void {
-    this.getShippingMethod();
-    this.getCurrencies();
-    this.getPriceTypes();
-    this.getTrafficTypes();
-    this.getExchnageRates();
-    this.getDebitNotes();
-    this.getCredits();
-    this.getInovices();
-    this.getRateSheets();
-    this.getSupplierOrders();
-    this.getCustomerOrders();
-    this.getEstimates();
-    this.getComplaints();
-    this.updateTable();
+    forkJoin({
+      shippingMethods: this._ShippingMethodService.get(),
+      currencies: this._CurrencieService.get(),
+      priceTypes: this._PriceTypeService.get(),
+      trafficTypes: this._TrafficTypeService.get(),
+      exchangeRates: this._ExchangeRatesService.get(),
+      debitNotes: this._DebitNotesService.get(),
+      credits: this._CreditsService.get(),
+      invoices: this._InovicesService.get(),
+      rateSheets: this._RateSheetService.getItems(),
+      supplierOrders: this._SupplierOrderService.getItem(),
+      customerOrders: this._CustomerOrderSerivce.getItems(),
+      estimates: this._EstimatesService.getItems(),
+      complaints: this._ComplaintsService.get()
+    }).subscribe((data) => {
+      this.ShippingMethodList = data.shippingMethods;
+      this.CurrenciesList = data.currencies;
+      this.priceTypeLits = data.priceTypes;
+      this.TrafficTypeList = data.trafficTypes;
+      this.ExchangeRatesList = data.exchangeRates;
+      this.DebitNotesList = data.debitNotes;
+      this.CredistList = data.credits;
+      this.InovicesList = data.invoices;
+      this.RateSheetList = data.rateSheets;
+      this.SupplierOrdersList = data.supplierOrders;
+      this.CustomerOrderList = data.customerOrders;
+      this.EstimatesList = data.estimates;
+      this.ComplaintsList = data.complaints;
+  
+      this.updateTable(); // Now update table after all data is fetched
+    });
   }
 
   getShippingMethod = () => {
@@ -191,6 +210,7 @@ export class CodersCommercialComponent implements OnInit {
   }
 
   updateTable = () => {
+    this.cdr.detectChanges();
     this.tableItems = [
       {
         title: "Načini odprem",
@@ -257,8 +277,6 @@ export class CodersCommercialComponent implements OnInit {
         items: this.EstimatesList.length,
         url: "/dashboard/coders/commercials/estimates"
       }
-
-
     ]
   }
 

@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationsComponent } from '../../../../components/navigations/navigations.component';
 import { User } from '../../../../../auth/Classes/user';
 import { SessionService } from '../../../../../auth/API/session.service';
+import { UpdateMeassurementUnitsModalComponent } from '../../../../components/update-meassurement-units-modal/update-meassurement-units-modal.component';
+import { UploadMeassurementUnitsModalComponent } from '../../../../components/upload-meassurement-units-modal/upload-meassurement-units-modal.component';
 @Component({
   standalone: true,
   selector: 'app-ca-measurement-units',
@@ -21,7 +23,9 @@ import { SessionService } from '../../../../../auth/API/session.service';
     NotificationComponent,
     MuSearchPipe,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UpdateMeassurementUnitsModalComponent,
+    UploadMeassurementUnitsModalComponent
   ],
   templateUrl: './ca-measurement-units.component.html',
   styleUrl: './ca-measurement-units.component.scss'
@@ -35,7 +39,7 @@ export class CaMeasurementUnitsComponent implements OnInit {
   public searchUnit: string = '';
   public URLsList: Array<any> = new Array<any>();
   public UserInformation: User | null = new User();
-  
+  public selectedMUItem: MeassurmentUnits = new MeassurmentUnits();
 
   constructor(
     private _SessionService: SessionService,
@@ -96,6 +100,15 @@ export class CaMeasurementUnitsComponent implements OnInit {
         this.onNotify(error.error.message);
       }
     );
+  }
+
+  openUpdateModal = (item: MeassurmentUnits) => {
+    this.selectedMUItem = item; 
+    $('.update_mu_modal').fadeIn();
+  }
+
+  toggleUploadModal = () => {
+    $('.upload_mu_modal').fadeIn();
   }
 
 }

@@ -1,15 +1,13 @@
 <create-article-modal></create-article-modal>
+<notification [class_type]="'chipper_notification'" [system_message]="systemMessage"></notification>
 <div class="p-4">
     <navigations [urls]="URLsList" ></navigations>
     <div class="grid grid-cols-2 gap-4">
         <h2 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Vsi Artikli</h2>
         <div class="text-right">
             @if(UserInformation?.fk_information_id?.user_type == 'admin'){
-                <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                <button (click)="openCreateModal()" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
                     <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 1V4H1V6H4V9H6V6H9V4H6V1H4ZM3 20.0066V11H5V19H13V14C13 13.45 13.45 13 14 13L19 12.999V5H11V3H20.0066C20.5552 3 21 3.45576 21 4.00247V15L15 20.996L4.00221 21C3.4487 21 3 20.5551 3 20.0066ZM18.171 14.999L15 15V18.169L18.171 14.999Z"></path></svg>
-                </button>
-                <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-                    <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M5 18.89H6.41421L15.7279 9.57627L14.3137 8.16206L5 17.4758V18.89ZM21 20.89H3V16.6473L16.435 3.21231C16.8256 2.82179 17.4587 2.82179 17.8492 3.21231L20.6777 6.04074C21.0682 6.43126 21.0682 7.06443 20.6777 7.45495L9.24264 18.89H21V20.89ZM15.7279 6.74785L17.1421 8.16206L18.5563 6.74785L17.1421 5.33363L15.7279 6.74785Z"></path></svg>
                 </button>
                 <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
                     <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 19H20V12H22V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V12H4V19ZM13 9V16H11V9H6L12 3L18 9H13Z"></path></svg>            
@@ -18,7 +16,7 @@
         </div>
     </div>
     <div class="w-full  rounded">
-        <div class="bg-green-100 text-green-800 text-xl w-full font-medium me-2 px-2.5 py-0.5 rounded-t dark:bg-green-900 dark:text-green-300 p-4">Prikaz vrstic 0–0 (skupaj 1, poizvedba je trajala 0,0003 sekunde.)</div>
+        <div class="bg-green-100 text-green-800 text-xl w-full font-medium me-2 px-2.5 py-0.5 rounded-t dark:bg-green-900 dark:text-green-300 p-4">Prikaz vrstic 0–{{ AlternativesList.length }} (skupaj 1, poizvedba je trajala 0,0003 sekunde.)</div>
         <div class="p-4 code-wrapper dark:bg-navy-750 dark:text-white space-x-4 overflow-auto w-full">
             <span class="text-indigo-400">SELECT</span> 
             <span class="text-red-600">*</span> 
@@ -33,7 +31,7 @@
                 </div>
             </div>
 
-            <form class="flex items-center mx-auto w-full">   
+            <div class="flex items-center mx-auto w-full">   
                 <label for="simple-search" class="sr-only">Iskanje</label>
                 <div class="relative w-full">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -41,7 +39,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm12 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0V6a3 3 0 0 0-3-3H9m1.5-2-2 2 2 2"/>
                         </svg>
                     </div>
-                    <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Iskanje po tabeli..." required />
+                    <input [(ngModel)]="searchItem" type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Iskanje po tabeli..." required />
                 </div>
                 <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -49,9 +47,70 @@
                     </svg>
                     <span class="sr-only">Search</span>
                 </button>
-            </form>
+            </div>
             
             
         </div>
     </div>
+</div>
+<div class="grid sm:grid-cols-3 gap-4 p-4">
+    @for((chipper of AlternativesList | searchChipper: searchItem | paginate: {itemsPerPage: ipp, currentPage: p}); track chipper){
+        <div class="rounded-lg bg-gradient-to-r from-sky-400 to-blue-600 p-1">
+            <div class="rounded-lg bg-slate-50 px-4 py-4 dark:bg-navy-900 sm:px-5">
+              <div class="grid grid-cols-2 gap-4">
+                <h2 class="text-lg font-medium tracking-wide text-slate-600 line-clamp-1 dark:text-navy-100">
+                  {{ chipper.title }}
+                </h2>
+                <h2 class="text-lg text-right font-medium tracking-wide text-slate-600 line-clamp-1 dark:text-navy-100">
+                    {{chipper.ident }}
+                  </h2>
+              </div>
+              <div class="pt-2 grid grid-cols-2 gap-4">
+                <div class="flex items-left space-x-4">
+                    <div class="relative">
+                        <img class="w-10 h-10 rounded" [src]="chipper.fk_user_id.fk_information_id.profile_image" alt="">
+                        <span class="absolute bottom-0 left-8 transform translate-y-1/4 w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                    </div>
+                    <div class="text-semibold">
+                        <div>                        
+                            {{ chipper.fk_user_id.first_name }}
+                            {{ chipper.fk_user_id.last_name }}
+                        </div>
+                        <div class="text-xs">
+                            Tip uporabnika: {{ chipper.fk_user_id.fk_information_id.user_type }}
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right space-x-4">
+                    @if(UserInformation?.fk_information_id?.user_type == 'admin'){
+                        <button [routerLink]="['/dashboard/coders/articles/view/'+chipper.id]"  type="button" class="rounded-md bg-green-100 px-2.5 py-1.5 text-sm font-semibold text-green-600 shadow-sm hover:bg-green-200">
+                            <svg class="size-7" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path fill-rule="evenodd" d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd"/>
+                            </svg>                             
+                        </button>
+                        <button (click)="deleteItem(chipper.id)" type="button" class="rounded-md bg-red-100 px-2.5 py-1.5 text-sm font-semibold text-red-600 shadow-sm hover:bg-red-200">
+                            <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8ZM6 10V20H18V10H6ZM9 12H11V18H9V12ZM13 12H15V18H13V12ZM7 5V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V5H22V7H2V5H7ZM9 4V5H15V4H9Z"></path></svg>
+                        </button>
+                    }
+                </div>
+              </div>
+            </div>
+          </div>
+    } @empty {
+        <div class="rounded-lg bg-error px-4 py-4 text-white sm:px-5 col-span-2">
+            <div>
+              <h2 class="text-lg font-medium tracking-wide line-clamp-1">
+                Sistemsko obvestilo !
+              </h2>
+            </div>
+            <div class="pt-2">
+              <p>
+                Seznam podatkov je trenutno prazen, ali pa iskana vrednost ni bila najdena!
+              </p>
+            </div>
+          </div>
+    }
+</div>
+<div class="w-full p-4 text-right">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>

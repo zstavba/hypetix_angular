@@ -6,6 +6,7 @@ import { SessionService } from '../../../auth/API/session.service';
 import { User } from '../../../auth/Classes/user';
 import $ from 'jquery';
 import { NotificationComponent } from '../notification/notification.component';
+import { Generator } from '../../../auth/functions/generator';
 
 
 @Component({
@@ -23,9 +24,10 @@ export class CreateMessurementUnitModalComponent implements OnInit {
   public MeassurementUnitsList: Array<MeassurmentUnits> = new Array<MeassurmentUnits>();
   public UserInformation: User | null = new User();
   @Output() systemMessage: EventEmitter<string> = new EventEmitter<string>();
+  public generator: Generator = new Generator();
   public MUGroup: FormGroup = new FormGroup({
     fk_user_id: new FormControl(''),
-    code: new FormControl('',Validators.required),
+    code: new FormControl(this.generator.generateIdent(),Validators.required),
     title: new FormControl('',Validators.required)
   });
 

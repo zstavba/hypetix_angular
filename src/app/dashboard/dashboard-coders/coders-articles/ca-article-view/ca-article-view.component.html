@@ -1,0 +1,79 @@
+<notification [class_type]="'article_view_notification'" [system_message]="systemMessage" ></notification>
+<chipper-add-partner [ID]="routeID" (systemMessage)="onNotify($event)"></chipper-add-partner> 
+<div class="p-4">
+    <navigations [urls]="URLsList" ></navigations>
+    <div class="grid grid-cols-2 gap-4">
+        <h2 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Info za: {{ ChipperInfo.title }}</h2>
+        <div class="text-right">
+            @if(UserInformation?.fk_information_id?.user_type == 'admin'){
+                <button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M8 3a2 2 0 0 0-2 2v3h12V5a2 2 0 0 0-2-2H8Zm-3 7a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h1v-4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v4h1a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2H5Zm4 11a1 1 0 0 1-1-1v-4h8v4a1 1 0 0 1-1 1H9Z" clip-rule="evenodd"/>
+                      </svg>
+                </button>
+            }
+        </div>
+    </div>
+    <div class="w-full  rounded">
+        <div class="bg-green-100 text-green-800 text-xl w-full font-medium me-2 px-2.5 py-0.5 rounded-t dark:bg-green-900 dark:text-green-300 p-4">Prikaz podatkov za artikelj</div>
+        <div class="p-4 code-wrapper dark:bg-navy-750 dark:text-white space-x-4 overflow-auto w-full">
+            <span class="text-indigo-400">SELECT</span> 
+            <span class="text-red-600">*</span> 
+            <span class="text-indigo-400">FROM</span>
+            <span class="text-sky-400"> `alternative_chippers`</span>
+            <span class="text-indigo-400">WHERE</span>
+            <span class="text-sky-400"> `id`</span>
+            <span class="text-red-600">=</span>
+            <span class="text-sky-400"> '{{ routeID }}'</span> 
+        </div>
+    </div>
+</div>
+<div class="grid sm:grid-cols-4 gap-4 p-4">
+    <div class="space-y-4">
+        <div class="flex items-center gap-4">
+            <img class="w-10 h-10 rounded-full" [src]="ChipperInfo.fk_user_id.fk_information_id.profile_image" alt="">
+            <div class="font-medium dark:text-white">
+                <div>{{ ChipperInfo.fk_user_id.first_name }} {{ ChipperInfo.fk_user_id.last_name }}</div>
+                <div class="text-sm text-gray-500 dark:text-gray-400">TIp uporabnika: {{ ChipperInfo.fk_user_id.fk_information_id.user_type }}</div>
+            </div>
+        </div>
+        <div class="grid grid-cols-3 gap-4">
+            <div class="flex items-left space-x-4 col-span-2 py-2">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.25-2.095c.478-.86.75-1.85.75-2.905a5.973 5.973 0 0 0-.75-2.906 4 4 0 1 1 0 5.811ZM15.466 20c.34-.588.535-1.271.535-2v-1a5.978 5.978 0 0 0-1.528-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.535Z" clip-rule="evenodd"/>
+                </svg>
+                <div class="dark:text-white">
+                    Partnerji
+                </div>  
+            </div>
+            <div class="text-right">
+                <button (click)="openAddPartnerModal()" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M9 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H7Zm8-1a1 1 0 0 1 1-1h1v-1a1 1 0 1 1 2 0v1h1a1 1 0 1 1 0 2h-1v1a1 1 0 1 1-2 0v-1h-1a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
+                    </svg>                      
+                </button>
+            </div>
+        </div>
+        @for(partner of partnersList; track partner){
+            <div class="grid grid-cols-3 gap-4">
+                <div class="flex items-center gap-4 col-span-2">
+                    <img class="w-10 h-10 rounded-full" [src]="getProfileImage(partner.fk_partner_id.fk_information_id.profile_image)" alt="">
+                    <div class="font-medium dark:text-white">
+                        <div>{{ partner.fk_partner_id.first_name }} {{ partner.fk_partner_id.last_name }}</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400">TIp uporabnika: {{ partner.fk_partner_id.fk_information_id.user_type }}</div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <button (click)="deletePartner(partner.fk_partner_id.id)" type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M8.586 2.586A2 2 0 0 1 10 2h4a2 2 0 0 1 2 2v2h3a1 1 0 1 1 0 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8a1 1 0 0 1 0-2h3V4a2 2 0 0 1 .586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Zm4 0a1 1 0 1 0-2 0v8a1 1 0 1 0 2 0v-8Z" clip-rule="evenodd"/>
+                        </svg>                          
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="sm:col-span-3 space-y-4">
+        <update-article-shopping [Info]="ShoppingInfo" (systemMessage)="onNotify($event)"></update-article-shopping>
+    </div>
+</div>

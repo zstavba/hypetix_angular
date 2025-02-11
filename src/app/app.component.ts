@@ -136,6 +136,9 @@ import { SearchEstimatesPipe } from '../auth/Pipes/search-estimates.pipe';
 import { ComplaintsService } from '../auth/API/complaints.service';
 import { SearchComplaintsPipe } from '../auth/Pipes/search-complaints.pipe';
 import { SearchPerformancePipe } from '../auth/Pipes/search-performance.pipe';
+import { AlternativeChippersPartners } from '../auth/Classes/alternative-chippers-partners';
+import { AlternativeChippersShopping } from '../auth/Classes/alternative-chippers-shopping';
+import { SearchChipperPipe } from '../auth/Pipes/search-chipper.pipe';
 
 @Component({
   standalone: true,
@@ -276,7 +279,10 @@ import { SearchPerformancePipe } from '../auth/Pipes/search-performance.pipe';
     SearchEstimatesPipe,
     ComplaintsService,
     SearchComplaintsPipe,
-    SearchPerformancePipe
+    SearchPerformancePipe,
+    AlternativeChippersPartners,
+    AlternativeChippersShopping,
+    SearchChipperPipe
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

@@ -12,6 +12,7 @@ import { UpdateTaxModalComponent } from '../../../../components/update-tax-modal
 import { NavigationsComponent } from '../../../../components/navigations/navigations.component';
 import { User } from '../../../../../auth/Classes/user';
 import { SessionService } from '../../../../../auth/API/session.service';
+import { UploadTaxModalComponent } from '../../../../components/upload-tax-modal/upload-tax-modal.component';
 @Component({
   standalone: true,
   selector: 'app-ca-taxes',
@@ -23,7 +24,8 @@ import { SessionService } from '../../../../../auth/API/session.service';
     SearchTaxPipe,
     ReactiveFormsModule,
     FormsModule,
-    UpdateTaxModalComponent
+    UpdateTaxModalComponent,
+    UploadTaxModalComponent
   ],
   templateUrl: './ca-taxes.component.html',
   styleUrl: './ca-taxes.component.scss'
@@ -109,6 +111,9 @@ export class CaTaxesComponent implements OnInit {
   toggleUpdateTaxModal  = (T: Tax) => {
     $('.update_tax_modal').fadeIn();
     this.tax = T; 
+  }
+  toggleUploadTaxModal = () => {
+    $('.upload_tax_modal').fadeIn();
   }
 
 }

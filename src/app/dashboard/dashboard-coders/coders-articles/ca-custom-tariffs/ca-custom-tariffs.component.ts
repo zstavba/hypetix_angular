@@ -12,6 +12,7 @@ import { SearchCustomTariffsPipe } from '../../../../../auth/Pipes/search-custom
 import { NavigationsComponent } from '../../../../components/navigations/navigations.component';
 import { User } from '../../../../../auth/Classes/user';
 import { SessionService } from '../../../../../auth/API/session.service';
+import { UploadCustomTariffsModalComponent } from '../../../../components/upload-custom-tariffs-modal/upload-custom-tariffs-modal.component';
 
 @Component({
   standalone: true,
@@ -24,7 +25,8 @@ import { SessionService } from '../../../../../auth/API/session.service';
     NgxPaginationModule,
     ReactiveFormsModule,
     FormsModule,
-    SearchCustomTariffsPipe
+    SearchCustomTariffsPipe,
+    UploadCustomTariffsModalComponent
   ],
   templateUrl: './ca-custom-tariffs.component.html',
   styleUrl: './ca-custom-tariffs.component.scss'
@@ -108,5 +110,10 @@ export class CaCustomTariffsComponent implements OnInit {
       }
     )
   }
+
+  openUploadModal = () => {
+    $('.upload_custom_tariffs_modal').fadeIn();
+  }
+
 
 }

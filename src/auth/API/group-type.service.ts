@@ -36,6 +36,7 @@ export class GroupTypeService {
   uploadItem = (data: any): Observable<any> => {
     let FD: FormData = new FormData();
     FD.append('group_name_file',data.file);
+    FD.append('fk_user_id',JSON.stringify(data.fk_user_id));
 
     return this.http.post<any>(`${this.http_link}/coders/group/type/upload`,FD)
   }

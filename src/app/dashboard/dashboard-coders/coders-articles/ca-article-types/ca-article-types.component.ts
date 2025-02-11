@@ -13,6 +13,7 @@ import { UpdateArticleTypeModalComponent } from '../../../../components/update-a
 import { NavigationsComponent } from '../../../../components/navigations/navigations.component';
 import { SessionService } from '../../../../../auth/API/session.service';
 import { User } from '../../../../../auth/Classes/user';
+import { UploadArticleTypeModalComponent } from '../../../../components/upload-article-type-modal/upload-article-type-modal.component';
 
 
 @Component({
@@ -26,7 +27,8 @@ import { User } from '../../../../../auth/Classes/user';
     NotificationComponent,
     NgxPaginationModule,
     UpdateArticleTypeModalComponent,
-    NavigationsComponent
+    NavigationsComponent,
+    UploadArticleTypeModalComponent
   ],
   templateUrl: './ca-article-types.component.html',
   styleUrl: './ca-article-types.component.scss'
@@ -110,6 +112,10 @@ export class CaArticleTypesComponent implements OnInit {
   updateItem = (Type: ArticleType) => {
     $('.update_article_modal').fadeIn();
     this.ArticleTypeInfo = Type;
+  }
+
+  toggleUploadModal = () => {
+    $('.upload_article_type_modal').fadeIn();
   }
 
 }

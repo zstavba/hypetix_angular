@@ -53,7 +53,7 @@
         </div>
     </div>
 </div>
-<div class="grid grid-cols-3 gap-4 p-4">
+<div class="grid sm:grid-cols-3 gap-4 p-4">
     @for((performance of PerformanceWorkList | searchPerformance: searchP  |paginate: {itemsPerPage: ipp, currentPage: p}); track performance){
         <div class="rounded-lg bg-gradient-to-r from-sky-400 to-blue-600 p-1">
             <div class="rounded-lg bg-slate-50 px-4 py-4 dark:bg-navy-900 sm:px-5">
