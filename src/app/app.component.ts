@@ -139,6 +139,9 @@ import { SearchPerformancePipe } from '../auth/Pipes/search-performance.pipe';
 import { AlternativeChippersPartners } from '../auth/Classes/alternative-chippers-partners';
 import { AlternativeChippersShopping } from '../auth/Classes/alternative-chippers-shopping';
 import { SearchChipperPipe } from '../auth/Pipes/search-chipper.pipe';
+import { SearchCharacteristicsPipe } from '../auth/Pipes/search-characteristics.pipe';
+import { ClassificationTechnologicalUnits } from '../auth/Classes/classification-technological-units';
+import { ClassificationTechnologicalUnitsService } from '../auth/API/classification-technological-units.service';
 
 @Component({
   standalone: true,
@@ -282,7 +285,10 @@ import { SearchChipperPipe } from '../auth/Pipes/search-chipper.pipe';
     SearchPerformancePipe,
     AlternativeChippersPartners,
     AlternativeChippersShopping,
-    SearchChipperPipe
+    SearchChipperPipe,
+    SearchCharacteristicsPipe,
+    ClassificationTechnologicalUnits,
+    ClassificationTechnologicalUnitsService
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

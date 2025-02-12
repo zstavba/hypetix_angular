@@ -98,69 +98,6 @@ export class CodersArticlesComponent implements OnInit{
     });
   }
 
-  getGroupTypes = () => {
-    this._GroupTypeService.get().subscribe(
-      (response: GroupType[]) => {
-        this.GroupList = response;
-      }
-    )
-  }
-
-  getArticleTypes = () => {
-    this._ArticleTypeService.get().subscribe(
-      (response: ArticleType[]) => {
-        this.ArticleTypeList = response; 
-      }
-    )
-  }
-
-  getMeassurmentUnits = () => {
-    this._MuService.get().subscribe(
-      (response: MeassurmentUnits[]) => {
-        this.MeassurementUnitsList = response;
-      }
-    )
-  }
-
-  getTaxes = () => {
-    this._TaxService.get().subscribe(
-      (response: Tax[]) => {
-        this.TaxList = response; 
-      }
-    )
-  }
-
-  getCT = () => {
-    this._CustomTariffsService.get().subscribe(
-      (response: CustomTariffs[]) => {
-        this.CustomTariffsList = response;
-      }
-    )
-  }
-
-  getPerformanceWork = () => {
-    this._PerformanceService.get().subscribe(
-      (response: PerformanceWork[]) => {
-        this.PerformanceList = response;
-      }
-    )
-  }
-  getClassifications = () => {
-    this._ClassificationsService.get().subscribe(
-      (response: Classification[]) => {
-        this.ClassificationsList = response;
-      }
-    )
-  }
-
-  getChippers = () => {
-    this._AlternativeChippersService.getItems().subscribe(
-      (response: AlternativeChipers[]) => {
-        this.ChippersList = response;
-      }
-    )
-  }
-
   
   updateTableItemsList = () => {
     this.tableItemsList = [

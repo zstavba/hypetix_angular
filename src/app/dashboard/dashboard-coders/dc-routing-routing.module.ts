@@ -38,6 +38,12 @@ import { CcEstimatesComponent } from './coders-commercial/cc-estimates/cc-estima
 import { CaPerformanceComponent } from './coders-articles/ca-performance/ca-performance.component';
 import { CaArticleViewComponent } from './coders-articles/ca-article-view/ca-article-view.component';
 import { CdAreasComponent } from './coders-defaults/cd-areas/cd-areas.component';
+import { CpWorkProceduresComponent } from './coders-production/cp-work-procedures/cp-work-procedures.component';
+import { CpCharacteristicsComponent } from './coders-production/cp-characteristics/cp-characteristics.component';
+import { CpClassificationTechnologicalUnitsComponent } from './coders-production/cp-classification-technological-units/cp-classification-technological-units.component';
+import { CpGearComponent } from './coders-production/cp-gear/cp-gear.component';
+import { CpQmComponent } from './coders-production/cp-qm/cp-qm.component';
+import { CpTechnologicalUnitsComponent } from './coders-production/cp-technological-units/cp-technological-units.component';
 
 const routes: Routes = [
   {
@@ -192,10 +198,39 @@ const routes: Routes = [
     path: "commercials/estimates",
     component: CcEstimatesComponent
   },
+  //Production START
   {
     path: "production",
     component: CodersProductionComponent
-  }
+  },
+  {
+    path: "production/work/procedures",
+    component: CpWorkProceduresComponent
+  },
+  {
+    path: "production/characteristics",
+    component: CpCharacteristicsComponent
+  },
+  {
+    path: "production/classification/technological/units",
+    component: CpClassificationTechnologicalUnitsComponent
+  },
+  {
+    path: "production/qm",
+    component: CpQmComponent
+  },
+  {
+    path: "production/technological/instructions",
+    component: CodersProductionComponent
+  },
+  {
+    path: "production/technological/units",
+    component: CpTechnologicalUnitsComponent
+  },
+  
+
+
+  // Production END
 ];
 
 @NgModule({

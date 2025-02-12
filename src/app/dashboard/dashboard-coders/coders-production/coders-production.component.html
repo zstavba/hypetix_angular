@@ -1,1 +1,40 @@
-<p>coders-production works!</p>
+<div class="p-4">
+    <navigations [urls]="URLsList"></navigations>
+    <h2 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Proizvodnja</h2>
+    <div class="grid sm:grid-cols-3   gap-4">
+        @for(item of TableItemsList; track item){        
+            <div class="rounded-lg bg-gradient-to-r from-green-400 to-fuchsia-400 p-1">
+                    <div class="rounded-lg bg-slate-50 px-4 py-4 dark:bg-navy-900 sm:px-5">
+                    <div>
+                        <h2 class="text-lg font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">
+                        {{ item.title }}
+                        </h2>
+                    </div>
+                    <div class="pt-2 grid grid-cols-2 gap-4">
+                        <div class="text-6xl font-thin">
+                            {{ item.items }}
+                        </div>
+                        <div class="text-right p-4">
+                            <button [routerLink]="item.url"  type="button" class="rounded-md bg-sky-100 px-2.5 py-1.5 text-sm font-semibold text-sky-600 shadow-sm hover:bg-sky-100">
+                                <svg class="size-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M5 18.89H6.41421L15.7279 9.57627L14.3137 8.16206L5 17.4758V18.89ZM21 20.89H3V16.6473L16.435 3.21231C16.8256 2.82179 17.4587 2.82179 17.8492 3.21231L20.6777 6.04074C21.0682 6.43126 21.0682 7.06443 20.6777 7.45495L9.24264 18.89H21V20.89ZM15.7279 6.74785L17.1421 8.16206L18.5563 6.74785L17.1421 5.33363L15.7279 6.74785Z"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }@empty {
+            <div class="rounded-lg bg-error px-4 py-4 text-white sm:px-5">
+                <div>
+                  <h2 class="text-lg font-medium tracking-wide line-clamp-1">
+                    Sistemsko obvestilo
+                  </h2>
+                </div>
+                <div class="pt-2">
+                  <p>
+                   Povezava z podatkovno bazo je prekinjena!
+                  </p>
+                </div>
+              </div>
+        }
+    </div>
+</div>
